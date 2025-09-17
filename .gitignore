@@ -1,0 +1,33 @@
+# Ignore OS files
+.DS_Store
+Thumbs.db
+
+# Ignore PHPStorm and VSCode settings
+.idea/
+.vscode/
+
+# Ignore node modules and build artifacts
+node_modules/
+dist/
+build/
+*.log
+
+# Composer dependencies
+/vendor/
+
+# WordPress uploads
+/wp-content/uploads/
+
+# Env and secrets
+.env
+.env.local
+
+# Ignore package lock files
+package-lock.json
+yarn.lock
+
+# Ignore any zip files created for plugin distribution
+*.zip
+
+# Ignore localwp or other local dev config files (optional)
+.localwp/
