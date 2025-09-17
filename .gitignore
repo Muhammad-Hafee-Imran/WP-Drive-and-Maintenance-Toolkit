@@ -31,3 +31,5 @@ yarn.lock
 
 # Ignore localwp or other local dev config files (optional)
 .localwp/
+
+/composer.lock

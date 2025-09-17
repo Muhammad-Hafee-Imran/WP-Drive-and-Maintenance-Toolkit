@@ -25,7 +25,8 @@ use Google_Client;
 use Google\Service\Drive;
 use Google\Service\Drive\DriveFile;
 use Exception;
-class Drive_API extends Base {
+
+class DriveAPI extends Base {
 
 	/**
 	 * Google Client instance.
@@ -312,7 +313,6 @@ class Drive_API extends Base {
 					'webViewLink'  => $file->getWebViewLink(),
 				);
 			}
-			error_log('Files returned to frontend: ' . print_r($file_list, true));
 
 			return new WP_REST_Response(array('success'=> true, 'files' =>$file_list,
 				'nextPageToken'  => $results->getNextPageToken() ?: null, ));

@@ -11,14 +11,14 @@
  * @copyright (c) 2025, Incsub (http://incsub.com)
  */
 
-namespace WPMUDEV\PluginTest\App\Admin_Pages;
+namespace WPMUDEV\PluginTest\App\AdminPages;
 
 // Abort if called directly.
 defined( 'WPINC' ) || die;
 
 use WPMUDEV\PluginTest\Base;
 
-class Google_Drive extends Base {
+class GoogleDrive extends Base {
 	/**
 	 * The page title.
 	 *

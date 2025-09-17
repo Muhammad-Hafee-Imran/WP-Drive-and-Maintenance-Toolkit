@@ -36,6 +36,8 @@
 		]
 	},
 	"autoload": {
-        "classmap": ["core/", "app/"]
+        "psr-4": {
+			"WPMUDEV\\PluginTest\\": "src/"
+		}
 	}
 }

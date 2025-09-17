@@ -11,9 +11,8 @@
  * @copyright (c) 2025, Incsub (http://incsub.com)
  */
 
-namespace WPMUDEV\PluginTest;
+namespace WPMUDEV\PluginTest\Endpoints\V1;
 
-use WPMUDEV\PluginTest\Base;
 use WP_REST_Response;
 use WP_REST_Controller;
 

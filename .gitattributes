@@ -1,0 +1,16 @@
+*.php  text
+*.js   text
+*.jsx  text
+*.json text
+*.css  text
+*.scss text
+*.md   text
+*.xml  text
+*.sh   text
+*.pot  text
+*.bat  text eol=crlf
+*.png  binary
+*.jpg  binary
+*.gif  binary
+*.ico  binary
+*.zip  binary

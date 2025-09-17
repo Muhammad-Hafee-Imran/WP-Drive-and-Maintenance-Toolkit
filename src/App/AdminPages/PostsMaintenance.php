@@ -1,13 +1,13 @@
 <?php
 
-namespace WPMUDEV\PluginTest\App\Admin_Pages;
+namespace WPMUDEV\PluginTest\App\AdminPages;
 
 // Abort if called directly.
 defined( 'WPINC' ) || die;
 
 use WPMUDEV\PluginTest\Base;
 
-class Posts_Maintenance extends Base {
+class PostsMaintenance extends Base {
 
     private $page_title;
 
@@ -32,7 +32,7 @@ class Posts_Maintenance extends Base {
 
     }
 
-    private function register_admin_page() {
+    public function register_admin_page() {
         add_menu_page(
 			$this->page_title,
 			$this->page_title,
@@ -44,7 +44,7 @@ class Posts_Maintenance extends Base {
 		);
     }
 
-    private function callback() {
+    public function callback() {
 
     }
 

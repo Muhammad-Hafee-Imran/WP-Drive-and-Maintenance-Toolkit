@@ -92,8 +92,8 @@ final class Loader extends Base {
 	 * @return void
 	 */
 	private function init() {
-		App\Admin_Pages\Google_Drive::instance()->init();
-		Endpoints\V1\Drive_API::instance()->init();
-		App\Admin_Pages\Posts_Maintenance::instance()->init_posts_maintenance();
+		App\AdminPages\GoogleDrive::instance()->init();
+		Endpoints\V1\DriveAPI::instance()->init();
+		App\AdminPages\PostsMaintenance::instance()->init_posts_maintenance();
 	}
 }
