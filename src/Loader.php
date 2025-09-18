@@ -95,5 +95,6 @@ final class Loader extends Base {
 		App\AdminPages\GoogleDrive::instance()->init();
 		Endpoints\V1\DriveAPI::instance()->init();
 		App\AdminPages\PostsMaintenance::instance()->init_posts_maintenance();
+		Endpoints\V1\PostsApi::instance()->init_posts_api();
 	}
 }

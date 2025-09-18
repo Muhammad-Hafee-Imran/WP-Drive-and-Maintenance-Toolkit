@@ -6,22 +6,22 @@ import {
     useEffect
 } from "@wordpress/element";
 
-import NoticeMessage from "./google-drive-ui/components/NoticeMessage";
-import CredentialsForm from "./google-drive-ui/components/CredentialsForm";
-import AuthSection from "./google-drive-ui/components/AuthSection";
-import UploadSection from "./google-drive-ui/components/UploadSection";
-import CreateFolderSection from "./google-drive-ui/components/CreateFolderSection";
-import FilesListSection from "./google-drive-ui/components/FilesListSection";
+import NoticeMessage from "./components/NoticeMessage";
+import CredentialsForm from "./components/CredentialsForm";
+import AuthSection from "./components/AuthSection";
+import UploadSection from "./components/UploadSection";
+import CreateFolderSection from "./components/CreateFolderSection";
+import FilesListSection from "./components/FilesListSection";
 
-import useNotice from "./google-drive-ui/hooks/useNotice";
-import useDriveFiles from "./google-drive-ui/hooks/useDriveFiles";
-import useAuth from "./google-drive-ui/hooks/useAuth";
-import useUploadFile from "./google-drive-ui/hooks/useUploadFile";
-import useCreateFolder from "./google-drive-ui/hooks/useCreateFolder";
-import useDownloadFile from "./google-drive-ui/hooks/useDownloadFile";
+import useNotice from "./hooks/useNotice";
+import useDriveFiles from "./hooks/useDriveFiles";
+import useAuth from "./hooks/useAuth";
+import useUploadFile from "./hooks/useUploadFile";
+import useCreateFolder from "./hooks/useCreateFolder";
+import useDownloadFile from "./hooks/useDownloadFile";
 
 import { __ } from "@wordpress/i18n";
-import "./google-drive-ui/scss/style.scss";
+import "./scss/style.scss";
 
 const domElement = document.getElementById(
     window.wpmudevDriveTest.dom_element_id
@@ -103,10 +103,10 @@ const WPMUDEV_DriveTest = () => {
     };
 
     useEffect(() => {
-    if (isAuthenticated) {
-        loadFiles();
-    }
-}, [isAuthenticated]);
+        if (isAuthenticated) {
+            loadFiles();
+        }
+    }, [isAuthenticated]);
 
 
     return (

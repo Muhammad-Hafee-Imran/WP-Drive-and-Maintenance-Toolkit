@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Plugin Name:       WPMU DEV Plugin Test - Forminator Developer Position
  * Description:       A plugin focused on testing coding skills.
@@ -13,45 +14,98 @@
  * @package           create-block
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
+if (! defined('ABSPATH')) {
 	exit; // Exit if accessed directly.
 }
 
 // Support for site-level autoloading.
-if ( file_exists( __DIR__ . '/vendor/autoload.php' ) ) {
+if (file_exists(__DIR__ . '/vendor/autoload.php')) {
 	require_once __DIR__ . '/vendor/autoload.php';
 }
 
 
 // Plugin version.
-if ( ! defined( 'WPMUDEV_PLUGINTEST_VERSION' ) ) {
-	define( 'WPMUDEV_PLUGINTEST_VERSION', '1.0.0' );
+if (! defined('WPMUDEV_PLUGINTEST_VERSION')) {
+	define('WPMUDEV_PLUGINTEST_VERSION', '1.0.0');
 }
 
 // Define WPMUDEV_PLUGINTEST_PLUGIN_FILE.
-if ( ! defined( 'WPMUDEV_PLUGINTEST_PLUGIN_FILE' ) ) {
-	define( 'WPMUDEV_PLUGINTEST_PLUGIN_FILE', __FILE__ );
+if (! defined('WPMUDEV_PLUGINTEST_PLUGIN_FILE')) {
+	define('WPMUDEV_PLUGINTEST_PLUGIN_FILE', __FILE__);
 }
 
+if (! class_exists('ActionScheduler')) {
+	require_once __DIR__ . '/vendor/action-scheduler-trunk/action-scheduler.php';
+}
+
+
 // Plugin directory.
-if ( ! defined( 'WPMUDEV_PLUGINTEST_DIR' ) ) {
-	define( 'WPMUDEV_PLUGINTEST_DIR', plugin_dir_path( __FILE__ ) );
+if (! defined('WPMUDEV_PLUGINTEST_DIR')) {
+	define('WPMUDEV_PLUGINTEST_DIR', plugin_dir_path(__FILE__));
 }
 
 // Plugin url.
-if ( ! defined( 'WPMUDEV_PLUGINTEST_URL' ) ) {
-	define( 'WPMUDEV_PLUGINTEST_URL', plugin_dir_url( __FILE__ ) );
+if (! defined('WPMUDEV_PLUGINTEST_URL')) {
+	define('WPMUDEV_PLUGINTEST_URL', plugin_dir_url(__FILE__));
 }
 
 // Assets url.
-if ( ! defined( 'WPMUDEV_PLUGINTEST_ASSETS_URL' ) ) {
-	define( 'WPMUDEV_PLUGINTEST_ASSETS_URL', WPMUDEV_PLUGINTEST_URL . '/build' );
+if (! defined('WPMUDEV_PLUGINTEST_ASSETS_URL')) {
+	define('WPMUDEV_PLUGINTEST_ASSETS_URL', WPMUDEV_PLUGINTEST_URL . '/build');
 }
 
 // Shared UI Version.
-if ( ! defined( 'WPMUDEV_PLUGINTEST_SUI_VERSION' ) ) {
-	define( 'WPMUDEV_PLUGINTEST_SUI_VERSION', '2.12.23' );
+if (! defined('WPMUDEV_PLUGINTEST_SUI_VERSION')) {
+	define('WPMUDEV_PLUGINTEST_SUI_VERSION', '2.12.23');
 }
+
+
+function wpmudev_run_posts_scan( $post_types ) {
+    error_log( 'Worker fired with post types: ' . wp_json_encode( $post_types ) );
+
+    $args = [
+        'post_type'      => $post_types,
+        'post_status'    => 'publish',
+        'posts_per_page' => 50,
+        'fields'         => 'ids',
+    ];
+
+    $post_ids = get_posts( $args );
+
+    $results = [];
+    foreach ( $post_ids as $post_id ) {
+        update_post_meta( $post_id, 'wpmudev_test_last_scan', current_time( 'mysql' ) );
+        $results[] = [
+            'id'    => $post_id,
+            'title' => get_the_title( $post_id ),
+			'type'  => get_post_type( $post_id ),
+        ];
+    }
+
+    // Save results
+    $scan_data   = get_option( 'wpmudev_scan_data', [] );
+    $scan_data[] = [
+        'time'   => current_time( 'mysql' ),
+        'count'  => count( $results ),
+        'posts'  => $results,
+    ];
+
+    update_option( 'wpmudev_scan_data', $scan_data );
+
+	update_option( 'wpmudev_scan_status', [
+        'status' => 'Idle',
+        'time'   => current_time( 'mysql' )
+    ]);
+
+	
+
+}
+
+// ✅ Hook the worker
+add_action( 'wpmudev_posts_do_scan', 'wpmudev_run_posts_scan', 10, 1 );
+
+
+
 
 
 
@@ -59,7 +113,8 @@ if ( ! defined( 'WPMUDEV_PLUGINTEST_SUI_VERSION' ) ) {
 /**
  * WPMUDEV_PluginTest class.
  */
-class WPMUDEV_PluginTest {
+class WPMUDEV_PluginTest
+{
 
 	/**
 	 * Holds the class instance.
@@ -77,8 +132,9 @@ class WPMUDEV_PluginTest {
 	 * @since 1.0.0
 	 *
 	 */
-	public static function get_instance() {
-		if ( null === self::$instance ) {
+	public static function get_instance()
+	{
+		if (null === self::$instance) {
 			self::$instance = new self();
 		}
 
@@ -88,14 +144,15 @@ class WPMUDEV_PluginTest {
 	/**
 	 * Class initializer.
 	 */
-	public function load() {
+	public function load()
+	{
 		load_plugin_textdomain(
 			'wpmudev-plugin-test',
 			false,
-			dirname( plugin_basename( __FILE__ ) ) . '/languages'
+			dirname(plugin_basename(__FILE__)) . '/languages'
 		);
 
-		
+
 
 		WPMUDEV\PluginTest\Loader::instance();
 	}

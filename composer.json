@@ -20,7 +20,8 @@
 	],
 	"require": {
 		"php": ">=7.4",
-		"google/apiclient": "^2"
+		"google/apiclient": "^2",
+		"deliciousbrains/wp-background-processing": "^1.4"
 	},
 	"require-dev": {
 		"wp-coding-standards/wpcs": "^3.0",

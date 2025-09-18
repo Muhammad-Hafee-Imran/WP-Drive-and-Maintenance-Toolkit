@@ -123,8 +123,8 @@ class GoogleDrive extends Base {
 		}
 
 		$handle       = 'wpmudev_plugintest_drivepage';
-		$src          = WPMUDEV_PLUGINTEST_ASSETS_URL . '/index.js';
-		$style_src    = WPMUDEV_PLUGINTEST_ASSETS_URL . '/style-index.css';
+		$src          = WPMUDEV_PLUGINTEST_ASSETS_URL . '/google-drive/index.js';
+		$style_src    = WPMUDEV_PLUGINTEST_ASSETS_URL . '/google-drive/style-index.css';
 		$dependencies = ! empty( $this->script_data( 'dependencies' ) )
 			? $this->script_data( 'dependencies' )
 			: array(
