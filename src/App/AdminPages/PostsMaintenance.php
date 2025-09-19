@@ -101,6 +101,7 @@ class PostsMaintenance extends Base {
                 'restEndpointGetData' => 'wpmudev/v1/posts/get-scan-data/',
                 'restEndpointScheduleScan'    => 'wpmudev/v1/posts/schedule-scan/',
                 'restEndpointScanNow' =>  'wpmudev/v1/posts/scan-now/',
+                'restEndpointScheduleStatus' => 'wpmudev/v1/posts/schedule-status',
                 'nonce'                        => wp_create_nonce( 'wp_rest' ),
             )
         );

@@ -1,11 +1,10 @@
 import { useState } from "@wordpress/element";
-
 export default function useUploadFile(showNotice, reloadFiles) {
     const [isLoading, setIsLoading] = useState(false);
 
     const handleUpload = async (fileInputRef, uploadFile) => {
         if (!uploadFile) {
-            showNotice("No file selected.", "error");
+            showNotice(__("No file selected.","wpmudev-plugin-test"), "error");
             return;
         }
         const formData = new FormData();
@@ -19,16 +18,16 @@ export default function useUploadFile(showNotice, reloadFiles) {
             });
             const data = await response.json();
             if (!response.ok) {
-                showNotice(data.message || "Uploading Failed", "error");
+                showNotice(data.message || __("Uploading failed.","wpmudev-plugin-test"), "error");
             } else {
-                showNotice("Your file is Uploaded.", "success");
+                showNotice(__("Your file is uploaded.","wpmudev-plugin-test"), "success");
                 if (fileInputRef && fileInputRef.current) {
                     fileInputRef.current.value = "";
                 }
                 reloadFiles();
             }
         } catch (error) {
-            showNotice(error.message || "Uploading Failed", "error");
+            showNotice(error.message || __("Uploading failed.","wpmudev-plugin-test"), "error");
         } finally {
             setIsLoading(false);
         }

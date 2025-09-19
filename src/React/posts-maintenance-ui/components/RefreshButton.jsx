@@ -1,3 +1,5 @@
+import { __ } from "@wordpress/i18n";
+
 const RefreshButton = ({ isLoading, onClick }) => (
     <div className="wpmudev-pm-actions">
         <button
@@ -5,7 +7,7 @@ const RefreshButton = ({ isLoading, onClick }) => (
             onClick={onClick}
             disabled={isLoading}
         >
-            {isLoading ? "Refreshing..." : "Refresh Scan Data"}
+            {isLoading ? __("Refreshing...", "wpmudev-plugin-test") : __("Refresh Scan Data", "wpmudev-plugin-test")}
         </button>
     </div>
 );

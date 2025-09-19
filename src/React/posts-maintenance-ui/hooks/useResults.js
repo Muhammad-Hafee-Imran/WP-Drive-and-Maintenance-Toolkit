@@ -1,4 +1,5 @@
 import { useState } from "@wordpress/element";
+import { __ } from "@wordpress/i18n";
 
 export default function useResults(setScanStatus, setStatusTime) {
     const [history, setHistory] = useState([]);
@@ -26,7 +27,7 @@ export default function useResults(setScanStatus, setStatusTime) {
             data = await response.json();
 
             if (!response.ok) {
-                throw new Error(data.message || "Failed to fetch results.");
+                throw new Error(data.message || __("Failed to fetch results.","wpmudev-plugin-test"));
             }
 
             // ✅ Always update status and status_time
@@ -50,7 +51,7 @@ export default function useResults(setScanStatus, setStatusTime) {
                 const mapped = data.last_scan.posts.map((p) => ({
                     id: p.id,
                     title: p.title,
-                    type: p.type || "n/a",
+                    type: p.type || __("N/A", "wpmudev-plugin-test"),
                     lastScan: data.last_scan.time,
                 }));
                 setHistory(mapped);
@@ -71,8 +72,7 @@ export default function useResults(setScanStatus, setStatusTime) {
             }
 
         } catch (error) {
-            console.error("Error fetching results:", error);
-            setMessage(error.message || "Unexpected error.");
+            setMessage(error.message || __("Unexpected error.","wpmudev-plugin-test"));
         } finally {
             setIsLoading(false);
         }

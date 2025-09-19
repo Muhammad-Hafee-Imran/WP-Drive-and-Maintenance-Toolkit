@@ -1,5 +1,5 @@
 import { useState } from "@wordpress/element";
-
+import { createInterpolateElement } from '@wordpress/element';
 export default function useDownloadFile(showNotice) {
     const [isLoading, setIsLoading] = useState(false);
 
@@ -12,7 +12,7 @@ export default function useDownloadFile(showNotice) {
                 headers: { 'X-WP-Nonce': window.wpmudevDriveTest.nonce },
             });
             if (!response.ok) {
-                let errorMsg = "File downloading failed.";
+                let errorMsg = __("File downloading failed.", "wpmudev-plugin-test");
                 try {
                     const data = await response.json();
                     if (data && data.message) errorMsg = data.message;
@@ -27,9 +27,9 @@ export default function useDownloadFile(showNotice) {
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
-            showNotice("File has been downloaded.", "success");
+            showNotice(__("File has been downloaded.", "wpmudev-plugin-test"), "success");
         } catch (error) {
-            showNotice(error.message || "Unable to download file.", "error");
+            showNotice(error.message || __("Unable to download file.", "wpmudev-plugin-test"), "error");
         } finally {
             setIsLoading(false);
         }

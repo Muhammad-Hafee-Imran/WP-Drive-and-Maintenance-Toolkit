@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Class to boot up plugin.
  *
@@ -16,9 +17,10 @@ namespace WPMUDEV\PluginTest;
 use WPMUDEV\PluginTest\Base;
 
 // If this file is called directly, abort.
-defined( 'WPINC' ) || die;
+defined('WPINC') || die;
 
-final class Loader extends Base {
+final class Loader extends Base
+{
 	/**
 	 * Settings helper class instance.
 	 *
@@ -56,8 +58,9 @@ final class Loader extends Base {
 	 * @access protected
 	 * @return void
 	 */
-	protected function __construct() {
-		if ( ! $this->can_boot() ) {
+	protected function __construct()
+	{
+		if (! $this->can_boot()) {
 			return;
 		}
 
@@ -69,7 +72,8 @@ final class Loader extends Base {
 	 *
 	 * @return bool
 	 */
-	private function can_boot() {
+	private function can_boot()
+	{
 		/**
 		 * Checks
 		 *  - PHP version
@@ -79,8 +83,8 @@ final class Loader extends Base {
 		global $wp_version;
 
 		return (
-			version_compare( PHP_VERSION, $this->php_version, '>' ) &&
-			version_compare( $wp_version, $this->wp_version, '>' )
+			version_compare(PHP_VERSION, $this->php_version, '>') &&
+			version_compare($wp_version, $this->wp_version, '>')
 		);
 	}
 
@@ -91,10 +95,22 @@ final class Loader extends Base {
 	 * @access private
 	 * @return void
 	 */
-	private function init() {
+	private function init()
+	{
 		App\AdminPages\GoogleDrive::instance()->init();
 		Endpoints\V1\DriveAPI::instance()->init();
 		App\AdminPages\PostsMaintenance::instance()->init_posts_maintenance();
 		Endpoints\V1\PostsApi::instance()->init_posts_api();
+
+		if (defined('WP_CLI') && WP_CLI) {
+			try {
+				\WP_CLI::add_command(
+					'wpmudev posts scan',
+					\WPMUDEV\PluginTest\CLI\PostsCli::class
+				);
+			} catch (\Exception $e) {
+				\WP_CLI::warning('Could not register posts-scan command: ' . $e->getMessage());
+			}
+		}
 	}
 }

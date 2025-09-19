@@ -1,5 +1,4 @@
 import { useState } from "@wordpress/element";
-
 export default function useDriveFiles(showNotice) {
     const [files, setFiles] = useState([]);
     const [nextPageToken, setNextPageToken] = useState(null);
@@ -16,7 +15,7 @@ export default function useDriveFiles(showNotice) {
             });
             const data = await response.json();
             if (!response.ok) {
-                showNotice(data.message || "Could not fetch files.", "error");
+                showNotice(data.message || __("Could not fetch files.","wpmudev-plugin-test"), "error");
             } else {
                 if (append) {
                     setFiles(prevFiles => [...prevFiles, ...(data.files || [])]);
@@ -26,7 +25,7 @@ export default function useDriveFiles(showNotice) {
                 setNextPageToken(data.nextPageToken || null);
             }
         } catch (error) {
-            showNotice(error.message || "Failed to retrieve files.", "error");
+            showNotice(error.message || __("Failed to retrieve files.","wpmudev-plugin-test"), "error");
         } finally {
             setIsLoading(false);
         }

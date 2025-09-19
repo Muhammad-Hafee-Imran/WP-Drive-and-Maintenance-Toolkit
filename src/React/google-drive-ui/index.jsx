@@ -6,6 +6,8 @@ import {
     useEffect
 } from "@wordpress/element";
 
+import { createInterpolateElement } from '@wordpress/element';
+
 import NoticeMessage from "./components/NoticeMessage";
 import CredentialsForm from "./components/CredentialsForm";
 import AuthSection from "./components/AuthSection";

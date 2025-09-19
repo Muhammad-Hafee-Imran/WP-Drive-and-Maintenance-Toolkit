@@ -59,6 +59,40 @@ if (! defined('WPMUDEV_PLUGINTEST_SUI_VERSION')) {
 	define('WPMUDEV_PLUGINTEST_SUI_VERSION', '2.12.23');
 }
 
+// Load scoped vendor autoloader.
+if ( file_exists( __DIR__ . '/build/php-scoped/autoload.php' ) ) {
+    require_once __DIR__ . '/build/php-scoped/autoload.php';
+}
+
+
+
+
+
+// Daily scan hook: runs when Action Scheduler calls 'wpmudev_daily_scan'
+add_action( 'wpmudev_daily_scan', function() {
+    $enabled = get_option( 'wpmudev_daily_scan_enabled', false );
+    if ( ! $enabled ) {
+        return; // safety check
+    }
+
+    // Load saved post types or fallback
+    $post_types = get_option( 'wpmudev_scheduled_post_types', [ 'post','page' ] );
+
+    // Reset status
+    update_option( 'wpmudev_scan_status', [
+        'status' => 'pending',
+        'time'   => current_time( 'mysql' )
+    ]);
+
+    // Enqueue Action Scheduler job
+    as_enqueue_async_action(
+        'wpmudev_posts_do_scan',
+        [ 'post_types' => $post_types ],
+        'wpmudev-plugin-test'
+    );
+});
+
+
 
 function wpmudev_run_posts_scan( $post_types ) {
     error_log( 'Worker fired with post types: ' . wp_json_encode( $post_types ) );

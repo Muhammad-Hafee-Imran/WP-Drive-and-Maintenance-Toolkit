@@ -18,9 +18,14 @@ module.exports = {
     clean: false,
   },
   externals: {
-    ...wpDefaults.externals,
-    react: 'React',
-    'react-dom': 'ReactDOM',
+     ...wpDefaults.externals,
+  react: 'React',
+  'react-dom': 'ReactDOM',
+  '@wordpress/element': 'wp.element',
+  '@wordpress/i18n': 'wp.i18n',
+  '@wordpress/components': 'wp.components',
+  '@wordpress/data': 'wp.data',
+  '@wordpress/api-fetch': 'wp.apiFetch',
   },
 
  

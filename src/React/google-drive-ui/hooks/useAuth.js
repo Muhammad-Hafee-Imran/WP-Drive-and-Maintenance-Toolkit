@@ -1,5 +1,5 @@
 import { useState } from "@wordpress/element";
-
+import { createInterpolateElement } from '@wordpress/element';
 export default function useAuth(showNotice) {
     const [isLoading, setIsLoading] = useState(false);
 
@@ -15,12 +15,12 @@ export default function useAuth(showNotice) {
             });
             const data = await response.json();
             if (!response.ok) {
-                showNotice(data.message || "Authentication Failed.", "error");
+                showNotice(data.message || __("Authentication Failed.","wpmudev-plugin-test"), "error");
             } else {
                 window.location.href = data.authUrl;
             }
         } catch (error) {
-            showNotice(error.message || "Authentication Failed.", "error");
+            showNotice(error.message || __("Authentication Failed.","wpmudev-plugin-test"), "error");
         } finally {
             setIsLoading(false);
         }

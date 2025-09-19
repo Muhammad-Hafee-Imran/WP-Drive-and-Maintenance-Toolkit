@@ -1,5 +1,5 @@
 import { useState } from "@wordpress/element";
-
+import { __ } from "@wordpress/i18n";
 export default function useScan() {
     const [isScanning, setIsScanning] = useState(false);
     const [message, setMessage] = useState("");
@@ -17,7 +17,7 @@ export default function useScan() {
                         "X-WP-Nonce": wpmudevPostsMaintenance.nonce,
                     },
                     body: JSON.stringify({
-                        type: scanType, // 👈 send selected option
+                        type: scanType, 
                     }),
                 }
             );
@@ -25,7 +25,7 @@ export default function useScan() {
             const data = await response.json();
             
             if (!response.ok) {
-                throw new Error(data.message || "Scan failed.");
+                throw new Error(data.message || __("Scan failed.","wpmudev-plugin-test"));
             }
             if (data.message) {
                 setMessage(data.message);
@@ -33,15 +33,15 @@ export default function useScan() {
 
         } catch (error) {
             console.error("Error running scan:", error);
-            setMessage(error.message || "Unexpected error.");
+            setMessage(error.message || __("Unexpected Error.","womudev-plugin-test"));
         }
     };
 
     return {
         isScanning,
         message,
-        scanType,     // 👈 expose selected type
-        setScanType,  // 👈 expose setter for dropdown
+        scanType,     
+        setScanType,  
         handleScanNow,
     };
 }

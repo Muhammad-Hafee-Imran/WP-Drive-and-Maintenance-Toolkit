@@ -1,6 +1,6 @@
 import { Button, Spinner } from "@wordpress/components";
 import { __ } from "@wordpress/i18n";
-
+import { createInterpolateElement } from '@wordpress/element';
 const FilesListSection = ({
     files,
     isLoading,
@@ -52,15 +52,15 @@ const FilesListSection = ({
                             <div className="file-info">
                                 <strong>{file.name}</strong>
                                 <small>
-                                    Type: {file.mimeType === "application/vnd.google-apps.folder"
-                                        ? "📁 Folder"
-                                        : "📄 File"}{" "}
+                                    {__("Type:", "wpmudev-plugin-test")} {file.mimeType === "application/vnd.google-apps.folder"
+                                        ? __("📁 Folder", "wpmudev-plugin-test")
+                                        : __("📄 File", "wpmudev-plugin-test")}{" "}
                                 </small>
                                 <br />
                                 {file.mimeType !== "application/vnd.google-apps.folder" && (
                                     <>
                                         <small>
-                                            Size: {Math.round((file.size || 0) / 1024)} KB
+                                           {__("Size:", "wpmudev-plugin-test")} {Math.round((file.size || 0) / 1024)} KB
                                         </small>
                                         <br />
                                     </>

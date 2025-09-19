@@ -1,5 +1,6 @@
 import { Button, TextControl, Spinner } from "@wordpress/components";
-import { __, createInterpolateElement } from "@wordpress/i18n";
+import { __ } from '@wordpress/i18n';
+import { createInterpolateElement } from '@wordpress/element';
 
 // Credentials form for entering Client ID/Secret
 const CredentialsForm = ({

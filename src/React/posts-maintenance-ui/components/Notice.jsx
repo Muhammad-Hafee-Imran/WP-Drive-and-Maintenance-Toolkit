@@ -1,3 +1,4 @@
+import { __ } from "@wordpress/i18n";
 const Notice = ({ type, message, onDismiss }) => {
     if (!message) return null;
 
@@ -7,7 +8,7 @@ const Notice = ({ type, message, onDismiss }) => {
         <div className={classes}>
             <p>{message}</p>
             <button type="button" className="notice-dismiss" onClick={onDismiss}>
-                <span className="screen-reader-text">Dismiss this notice.</span>
+                <span className="screen-reader-text">{__('Dismiss this notice.', 'wpmudev-plugin-test' )}</span>
             </button>
         </div>
     );

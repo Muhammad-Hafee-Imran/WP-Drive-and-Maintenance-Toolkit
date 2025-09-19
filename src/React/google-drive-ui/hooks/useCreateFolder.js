@@ -1,11 +1,11 @@
 import { useState } from "@wordpress/element";
-
+import { createInterpolateElement } from '@wordpress/element';
 export default function useCreateFolder(showNotice, reloadFiles) {
     const [isLoading, setIsLoading] = useState(false);
 
     const handleCreateFolder = async (folderName, setFolderName) => {
         if (!folderName.trim()) {
-            showNotice("Folder name is required.", "error");
+            showNotice(__("Folder name is required.", "wpmudev-plugin-test"), "error");
             return;
         }
         try {
@@ -20,14 +20,14 @@ export default function useCreateFolder(showNotice, reloadFiles) {
             });
             const data = await response.json();
             if (!response.ok) {
-                showNotice(data.message || "Folder creation failed.", "error");
+                showNotice(data.message || __("Folder creation failed.","wpmudev-plugin-test"), "error");
             } else {
-                showNotice("Folder has been created.", "success");
+                showNotice(__("Folder has been created.","wpmudev-plugin-test"), "success");
                 setFolderName("");
                 reloadFiles();
             }
         } catch (error) {
-            showNotice(error.message || "Folder creation failed.", "error");
+            showNotice(error.message || __("Folder creation failed.","wpmudev-plugin-test"), "error");
         } finally {
             setIsLoading(false);
         }

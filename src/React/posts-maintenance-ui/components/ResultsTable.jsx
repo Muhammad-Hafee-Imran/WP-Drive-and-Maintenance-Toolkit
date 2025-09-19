@@ -1,11 +1,12 @@
+import { __ } from "@wordpress/i18n";
 const ResultsTable = ({ results }) => (
     <table className="widefat striped wpmudev-pm-results">
         <thead>
             <tr>
-                <th>ID</th>
-                <th>Title</th>
-                <th>Type</th>      {/* ✅ new column */}
-                <th>Last Scan</th>
+                <th>{__("ID", "wpmudev-plugin-test")}</th>
+                <th>{__("Title", "wpmudev-plugin-test")}</th>
+                <th>{__("Type", "wpmudev-plugin-test")}</th> 
+                <th>{__("Last Scan", "wpmudev-plugin-test")}</th>
             </tr>
         </thead>
         <tbody>
@@ -13,7 +14,7 @@ const ResultsTable = ({ results }) => (
                 <tr key={`${row.id}-${index}`}>
                     <td>{row.id}</td>
                     <td>{row.title}</td>
-                    <td>{row.type}</td>   {/* ✅ new column */}
+                    <td>{row.type}</td>   
                     <td>{row.lastScan}</td>
                 </tr>
             ))}
