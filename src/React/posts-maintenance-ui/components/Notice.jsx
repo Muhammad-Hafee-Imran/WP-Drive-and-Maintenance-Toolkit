@@ -8,7 +8,7 @@ const Notice = ({ type, message, onDismiss }) => {
         <div className={classes}>
             <p>{message}</p>
             <button type="button" className="notice-dismiss" onClick={onDismiss}>
-                <span className="screen-reader-text">{__('Dismiss this notice.', 'wpmudev-plugin-test' )}</span>
+                <span className="screen-reader-text">{__('Dismiss this notice.', 'hafee-utility-plugin' )}</span>
             </button>
         </div>
     );

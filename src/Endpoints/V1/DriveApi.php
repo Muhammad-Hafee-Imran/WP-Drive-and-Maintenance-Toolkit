@@ -3,22 +3,15 @@
 /**
  * Google Drive API endpoints using Google Client Library.
  *
- * @link          https://wpmudev.com/
- * @since         1.0.0
- *
- * @author        WPMUDEV (https://wpmudev.com)
- * @package       WPMUDEV\PluginTest
- *
- * @copyright (c) 2025, Incsub (http://incsub.com)
  */
 
-namespace WPMUDEV\PluginTest\Endpoints\V1;
+namespace Hafee\Toolkit\Endpoints\V1;
 
 // Abort if called directly.
 defined('WPINC') || die;
 
 use Error;
-use WPMUDEV\PluginTest\Base;
+use Hafee\Toolkit\Base;
 use WP_REST_Request;
 use WP_REST_Response;
 use WP_Error;
@@ -26,7 +19,7 @@ use Google_Client;
 use Google\Service\Drive;
 use Google\Service\Drive\DriveFile;
 use Exception;
-use WPMUDEV\PluginTest\Encryption\Encryption;
+use Hafee\Toolkit\Encryption\Encryption;
 
 
 class DriveAPI extends Base
@@ -68,7 +61,7 @@ class DriveAPI extends Base
 	 */
 	public function init()
 	{
-		$this->redirect_uri = home_url('/wp-json/wpmudev/v1/drive/callback');
+		$this->redirect_uri = home_url('/wp-json/hafee/v1/drive/callback');
 		$this->setup_google_client();
 
 		add_action('rest_api_init', array($this, 'register_routes'));
@@ -79,7 +72,7 @@ class DriveAPI extends Base
 	 */
 	private function setup_google_client()
 	{
-		$encrypted = get_option('wpmudev_plugin_tests_auth', '');
+		$encrypted = get_option('hafee_plugin_tests_auth', '');
 		$auth_creds = [];
 
 		if (! empty($encrypted)) {
@@ -101,7 +94,7 @@ class DriveAPI extends Base
 		$this->client->setPrompt('consent');
 
 		// Set access token if available
-		$access_token = get_option('wpmudev_drive_access_token', '');
+		$access_token = get_option('hafee_drive_access_token', '');
 		if (! empty($access_token)) {
 			$this->client->setAccessToken($access_token);
 		}
@@ -116,47 +109,67 @@ class DriveAPI extends Base
 	public function register_routes()
 	{
 		// Save credentials endpoint
-		register_rest_route('wpmudev/v1/drive', '/save-credentials', array(
+		register_rest_route('hafee/v1/drive', '/save-credentials', array(
 			'methods'             => 'POST',
 			'callback'            => array($this, 'save_credentials'),
+			'permission_callback' => [$this, 'permission']
 		));
 
 		// Authentication endpoint
-		register_rest_route('wpmudev/v1/drive', '/auth', array(
+		register_rest_route('hafee/v1/drive', '/auth', array(
 			'methods'             => 'POST',
 			'callback'            => array($this, 'start_auth'),
+			'permission_callback' => [$this, 'permission']
 		));
 
 		// OAuth callback
-		register_rest_route('wpmudev/v1/drive', '/callback', array(
+		register_rest_route('hafee/v1/drive', '/callback', array(
 			'methods'             => 'GET',
 			'callback'            => array($this, 'handle_callback'),
+			'permission_callback' => [$this, 'permission']
 		));
 
 		// List files
-		register_rest_route('wpmudev/v1/drive', '/files', array(
+		register_rest_route('hafee/v1/drive', '/files', array(
 			'methods'             => 'GET',
 			'callback'            => array($this, 'list_files'),
+			'permission_callback' => [$this, 'permission']
 		));
 
 		// Upload file
-		register_rest_route('wpmudev/v1/drive', '/upload', array(
+		register_rest_route('hafee/v1/drive', '/upload', array(
 			'methods'             => 'POST',
 			'callback'            => array($this, 'upload_file'),
+			'permission_callback' => [$this, 'permission']
 		));
 
 		// Download file
-		register_rest_route('wpmudev/v1/drive', '/download', array(
+		register_rest_route('hafee/v1/drive', '/download', array(
 			'methods'             => 'GET',
 			'callback'            => array($this, 'download_file'),
+			'permission_callback' => [$this, 'permission']
 		));
 
 		// Create folder
-		register_rest_route('wpmudev/v1/drive', '/create-folder', array(
+		register_rest_route('hafee/v1/drive', '/create-folder', array(
 			'methods'             => 'POST',
 			'callback'            => array($this, 'create_folder'),
+			'permission_callback' => [$this, 'permission']
 		));
 	}
+
+	public function permission()
+	{
+		if (! current_user_can('manage_options')) {
+			return new WP_Error(
+				'hafee_rest_forbidden',
+				'You are not allowed to access this endpoint.',
+				['status' => 403]
+			);
+		}
+		return true;
+	}
+
 
 	/**
 	 * Save Google OAuth credentials.
@@ -193,7 +206,7 @@ class DriveAPI extends Base
 			);
 		}
 
-		update_option('wpmudev_plugin_tests_auth', $encrypted, false);
+		update_option('hafee_plugin_tests_auth', $encrypted, false);
 
 
 		// Reinitialize Google Client with new credentials
@@ -244,20 +257,20 @@ class DriveAPI extends Base
 				throw new Exception($token['error_description'] ?? $token['error']);
 			}
 			//Updating thee token in the database.
-			update_option('wpmudev_drive_access_token', $token['access_token']);
+			update_option('hafee_drive_access_token', $token['access_token']);
 
 			//Store the refresh token if it's provided.
 			if (isset($token['refresh_token'])) {
-				update_option('wpmudev_drive_refresh_token', $token['refresh_token']);
+				update_option('hafee_drive_refresh_token', $token['refresh_token']);
 			}
 			//Store the token expiry timestamp.
 			if (isset($token['expires_in'])) {
-				update_option('wpmudev_drive_token_expires', time() + intval($token['expires_in']));
+				update_option('hafee_drive_token_expires', time() + intval($token['expires_in']));
 			}
 
 
 			// Redirect back to admin page
-			wp_redirect(admin_url('admin.php?page=wpmudev_plugintest_drive&auth=success'));
+			wp_redirect(admin_url('admin.php?page=hafee_toolkit_drive&auth=success'));
 			exit;
 		} catch (Exception $e) {
 			//Catches the errors thrown.
@@ -277,7 +290,7 @@ class DriveAPI extends Base
 
 		// Check if token is expired and refresh if needed
 		if ($this->client->isAccessTokenExpired()) {
-			$refresh_token = get_option('wpmudev_drive_refresh_token');
+			$refresh_token = get_option('hafee_drive_refresh_token');
 
 			if (empty($refresh_token)) {
 				return false;
@@ -290,17 +303,8 @@ class DriveAPI extends Base
 					return false;
 				}
 
-				if (isset($new_token['access_token'])) {
-					update_option('wpmudev_drive_access_token', $new_token['access_token']);
-				}
-
-				if (isset($new_token['expires_in'])) {
-					update_option(
-						'wpmudev_drive_token_expires',
-						time() + intval($new_token['expires_in'])
-					);
-				}
-
+				update_option('hafee_drive_access_token', 'NEW TOKEN');
+				update_option('hafee_drive_token_expires', 'NEW EXPIRATION TIME');
 
 				return true;
 			} catch (Exception $e) {

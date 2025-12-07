@@ -3,7 +3,7 @@
 class TestAPIAuth extends WP_Test_REST_TestCase {
 
 	public function test_get_auth_url() {
-		$request  = new WP_REST_Request( 'GET', '/wpmudev/v1/auth/auth-url' );
+		$request  = new WP_REST_Request( 'GET', '/hafee/v1/auth/auth-url' );
 		$response = rest_get_server()->dispatch( $request );
 		$error    = $response->as_error();
 

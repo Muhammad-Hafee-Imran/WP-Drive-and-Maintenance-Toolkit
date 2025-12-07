@@ -1,6 +1,6 @@
 <?php
 
-namespace WPMUDEV\PluginTest\Encryption;
+namespace Hafee\Toolkit\Encryption;
 
 defined('ABSPATH') || exit;
 
@@ -9,10 +9,10 @@ class Encryption
 
     public static function get_key()
     {
-        $key = get_option('wpmudev_plugin_test_encryption_key');
+        $key = get_option('hafee_plugin_test_encryption_key');
         if (! $key) {
             $key = bin2hex(openssl_random_pseudo_bytes(32));
-            add_option('wpmudev_plugin_test_encryption_key', $key, '', false);
+            add_option('hafee_plugin_test_encryption_key', $key, '', false);
         }
         return $key;
     }

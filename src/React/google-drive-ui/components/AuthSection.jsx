@@ -7,25 +7,25 @@ const AuthSection = ({
     handleAuth,
     setShowCredentials
 }) => (
-    <div className="sui-box">
-        <div className="sui-box-header">
-            <h2 className="sui-box-title">
-                {__("Authenticate with Google Drive", "wpmudev-plugin-test")}
+    <div className="hafee-box">
+        <div className="hafee-box-header">
+            <h2 className="hafee-box-title">
+                {__("Authenticate with Google Drive", "hafee-utility-plugin")}
             </h2>
         </div>
-        <div className="sui-box-body">
-            <div className="sui-box-settings-row">
+        <div className="hafee-box-body">
+            <div className="hafee-box-settings-row">
                 <p>
                     {__(
                         "Please authenticate with Google Drive to proceed with the test.",
-                        "wpmudev-plugin-test"
+                        "hafee-utility-plugin"
                     )}
                 </p>
                 <p>
                     <strong>
                         {__(
                             "This test will require the following permissions:",
-                            "wpmudev-plugin-test"
+                            "hafee-utility-plugin"
                         )}
                     </strong>
                 </p>
@@ -33,26 +33,26 @@ const AuthSection = ({
                     <li>
                         {__(
                             "View and manage Google Drive files",
-                            "wpmudev-plugin-test"
+                            "hafee-utility-plugin"
                         )}
                     </li>
                     <li>
-                        {__("Upload new files to Drive", "wpmudev-plugin-test")}
+                        {__("Upload new files to Drive", "hafee-utility-plugin")}
                     </li>
-                    <li>{__("Create folders in Drive", "wpmudev-plugin-test")}</li>
+                    <li>{__("Create folders in Drive", "hafee-utility-plugin")}</li>
                 </ul>
             </div>
         </div>
-        <div className="sui-box-footer">
-            <div className="sui-actions-left">
+        <div className="hafee-box-footer">
+            <div className="hafee-actions-left">
                 <Button
                     variant="secondary"
                     onClick={() => setShowCredentials(true)}
                 >
-                    {__("Change Credentials", "wpmudev-plugin-test")}
+                    {__("Change Credentials", "hafee-utility-plugin")}
                 </Button>
             </div>
-            <div className="sui-actions-right">
+            <div className="hafee-actions-right">
                 <Button
                     variant="primary"
                     onClick={handleAuth}
@@ -61,7 +61,7 @@ const AuthSection = ({
                     {isLoading ? (
                         <Spinner />
                     ) : (
-                        __("Authenticate with Google Drive", "wpmudev-plugin-test")
+                        __("Authenticate with Google Drive", "hafee-utility-plugin")
                     )}
                 </Button>
             </div>

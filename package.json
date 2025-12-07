@@ -1,21 +1,21 @@
 {
-	"name": "wpmudev-plugin-test",
+	"name": "hafee-utility-plugin",
 	"version": "1.0.0",
-	"description": "WOMU DEV Plugin Test",
+	"description": "WordPress plugin providing Google Drive integration and automated content maintenance workflows",
 	"main": "index.js",
 	"directories": {
 		"test": "tests"
 	},
 	"scripts": {
+		
+  		"package": "npm run build && composer install --no-dev --optimize-autoloader && cd .. && zip -r hafee-utility-plugin.zip hafee-utility-plugin/ -x \"hafee-utility-plugin/node_modules/*\" -x \"hafee-utility-plugin/.git/*\" -x \"hafee-utility-plugin/.github/*\" -x \"hafee-utility-plugin/.idea/*\" -x \"hafee-utility-plugin/.vscode/*\" -x \"hafee-utility-plugin/.DS_Store\" && cd hafee-utility-plugin",
 		"build": "wp-scripts build",
 		"start": "wp-scripts start",
-		"translate": "wp i18n make-pot ./ languages/wpmudev-plugin-test.pot --exclude=builds/,node_modules/,src,builds --ignore-domain --allow-root"
+		"translate": "wp i18n make-pot ./ languages/hafee-utility-plugin.pot --exclude=builds/,node_modules/,src,builds --ignore-domain --allow-root"
 	},
-	"author": "WPMU DEV",
+	"author": "Muhammad Hafee Imran",
 	"license": "GPL-3.0",
-	"dependencies": {
-		"@wpmudev/shared-ui": "2.12.23"
-	},
+	"dependencies": {},
 	"devDependencies": {
 		"@wordpress/api-fetch": "^6.43.0",
 		"@wordpress/element": "^5.23.0",

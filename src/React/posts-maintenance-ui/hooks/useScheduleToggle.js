@@ -10,15 +10,15 @@ export default function useScheduleToggle() {
         const fetchStatus = async () => {
             try {
                 const response = await fetch(
-                    `/wp-json/${wpmudevPostsMaintenance.restEndpointScheduleStatus}`,
+                    `/wp-json/${hafeePostsMaintenance.restEndpointScheduleStatus}`,
                     {
                         headers: {
-                            "X-WP-Nonce": wpmudevPostsMaintenance.nonce,
+                            "X-WP-Nonce": hafeePostsMaintenance.nonce,
                         },
                     }
                 );
                 if (!response.ok) {
-                    throw new Error(__("Failed to fetch schedule status.","wpmudev-plugin-test"));
+                    throw new Error(__("Failed to fetch schedule status.","hafee-utility-plugin"));
                 }
                 const data = await response.json();
 
@@ -30,7 +30,7 @@ export default function useScheduleToggle() {
                 }
             } catch (e) {
 
-                setMessage(e.message || __("Unexpected error.","wpmudev-plugin-test"));
+                setMessage(e.message || __("Unexpected error.","hafee-utility-plugin"));
             }
         };
 
@@ -43,12 +43,12 @@ export default function useScheduleToggle() {
             setLoading(true);
 
             const response = await fetch(
-                `/wp-json/${wpmudevPostsMaintenance.restEndpointScheduleScan}`,
+                `/wp-json/${hafeePostsMaintenance.restEndpointScheduleScan}`,
                 {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
-                        "X-WP-Nonce": wpmudevPostsMaintenance.nonce,
+                        "X-WP-Nonce": hafeePostsMaintenance.nonce,
                     },
                     body: JSON.stringify({
                         enabled: newValue,
@@ -67,7 +67,7 @@ export default function useScheduleToggle() {
             }
         } catch (e) {
 
-            setMessage(e.message || __("Failed to update schedule.","wpmudev-plugin-test"));
+            setMessage(e.message || __("Failed to update schedule.","hafee-utility-plugin"));
         } finally {
             setLoading(false);
         }

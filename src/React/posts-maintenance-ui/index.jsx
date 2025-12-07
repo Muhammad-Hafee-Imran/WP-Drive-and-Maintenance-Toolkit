@@ -11,7 +11,7 @@ import ScanButton from "./components/ScanButton";
 import RefreshButton from "./components/RefreshButton";
 import ResultsTable from "./components/ResultsTable";
 import Notice from "./components/Notice";
-import ScheduleToggle from "./components/ScheduleToggle"; // 👈 new
+import ScheduleToggle from "./components/ScheduleToggling"; // 👈 new
 
 import useNotice from "./hooks/useNotice";
 import useScan from "./hooks/useScan";
@@ -52,7 +52,7 @@ const PostsMaintenanceApp = () => {
     }, []);
 
     return (
-        <div className="wpmudev-pm-container">
+        <div className="hafee-pm-container">
             <Header />
 
             {/* Notice messages */}
@@ -97,17 +97,17 @@ const PostsMaintenanceApp = () => {
 
 
             {/* ✅ Status indicator */}
-            <div className="wpmudev-pm-status">
+            <div className="hafee-pm-status">
                 <p>
-                    <strong>{__("Status:","wpmudev-plugin-test")}</strong> {scanStatus} &nbsp;&nbsp;
-                    <strong>{__("Last Checked:","wpmudev-plugin-test")}</strong> {statusTime ? statusTime : __("N/A","wpmudev-plugin-test")}
+                    <strong>{__("Status:","hafee-utility-plugin")}</strong> {scanStatus} &nbsp;&nbsp;
+                    <strong>{__("Last Checked:","hafee-utility-plugin")}</strong> {statusTime ? statusTime : __("N/A","hafee-utility-plugin")}
                 </p>
             </div>
 
             {/* Summary */}
-            <div className="wpmudev-pm-summary">
-                <p><strong>{__("Total Scans:","wpmudev-plugin-test")}</strong> {totalScans}</p>
-                <p><strong>{__("Last Scan:","wpmudev-plugin-test")}</strong> {lastScan ? lastScan.time : __("No Scans Yet.","wpmudev-plugin-test")}</p>
+            <div className="hafee-pm-summary">
+                <p><strong>{__("Total Scans:","hafee-utility-plugin")}</strong> {totalScans}</p>
+                <p><strong>{__("Last Scan:","hafee-utility-plugin")}</strong> {lastScan ? lastScan.time : __("No Scans Yet.","hafee-utility-plugin")}</p>
             </div>
 
             {/* Loading indicator */}
@@ -120,7 +120,7 @@ const PostsMaintenanceApp = () => {
 };
 
 // Mount React app into container
-const domElement = document.getElementById(wpmudevPostsMaintenance.domId);
+const domElement = document.getElementById(hafeePostsMaintenance.domId);
 
 if (domElement) {
     const root = createRoot(domElement);
@@ -130,5 +130,5 @@ if (domElement) {
         </StrictMode>
     );
 } else {
-    console.error(__(" React root element not found:","wpmudev-plugin-test"), wpmudevPostsMaintenance.domId);
+    console.error(__(" React root element not found:","hafee-utility-plugin"), hafeePostsMaintenance.domId);
 }

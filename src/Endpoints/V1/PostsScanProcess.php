@@ -1,5 +1,5 @@
 <?php
-namespace WPMUDEV\PluginTest\Endpoints\V1;
+namespace Hafee\Toolkit\Endpoints\V1;
 
 use WP_Background_Process;
 
@@ -20,17 +20,17 @@ class PostsScanProcess extends WP_Background_Process {
         ];
 
         // Fetch existing scan data
-        $existing_data = get_option('wpmudev_scan_data', []);
+        $existing_data = get_option('hafee_scan_data', []);
         $existing_data[] = $scan_result;
 
         // Keep only the last 100 scans
         $existing_data = array_slice($existing_data, -100);
 
         // Save updated scan data
-        update_option('wpmudev_scan_data', $existing_data);
+        update_option('hafee_scan_data', $existing_data);
 
         // Update post meta with last scan timestamp
-        update_post_meta($post_id, 'wpmudev_test_last_scan', current_time('timestamp'));
+        update_post_meta($post_id, 'hafee_test_last_scan', current_time('timestamp'));
 
         return false; // Remove item from queue
     }

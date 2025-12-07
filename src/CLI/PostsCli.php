@@ -1,11 +1,11 @@
 <?php
-namespace WPMUDEV\PluginTest\CLI;
+namespace Hafee\Toolkit\CLI;
 
 use WP_CLI;
 use WP_CLI_Command;
 use WP_REST_Request;
 use WP_REST_Response;
-use WPMUDEV\PluginTest\Endpoints\V1\PostsApi;
+use Hafee\Toolkit\Endpoints\V1\PostsApi;
 
 defined( 'ABSPATH' ) || exit;
 
@@ -13,7 +13,7 @@ defined( 'ABSPATH' ) || exit;
  * WP-CLI command for Posts Maintenance scans.
  *
  * Usage:
- *   wp wpmudev posts scan --type=all_posts
+ *   wp hafee posts scan --type=all_posts
  */
 class PostsCli extends WP_CLI_Command {
 
@@ -31,10 +31,10 @@ class PostsCli extends WP_CLI_Command {
      * ## EXAMPLES
      *
      *     # Scan all posts
-     *     wp wpmudev posts scan --type=all_posts
+     *     wp hafee posts scan --type=all_posts
      *
      *     # Scan posts and pages
-     *     wp wpmudev posts scan --type=all_posts_pages
+     *     wp hafee posts scan --type=all_posts_pages
      *
      * @when after_wp_load
      */
@@ -53,7 +53,7 @@ class PostsCli extends WP_CLI_Command {
             }
 
             // Simulate REST request
-            $request = new WP_REST_Request( 'POST', '/wpmudev/v1/posts/scan-now' );
+            $request = new WP_REST_Request( 'POST', '/hafee/v1/posts/scan-now' );
             $request->set_body_params( [ 'scanType' => $option ] );
 
             $response = $api->scan_posts_now( $request );
@@ -71,7 +71,7 @@ class PostsCli extends WP_CLI_Command {
 
             // Run the worker immediately in CLI (bypass async queue)
             if ( isset( $data['post_types'] ) ) {
-                do_action( 'wpmudev_posts_do_scan', [ 'post_types' => $data['post_types'] ] );
+                do_action( 'hafee_posts_do_scan', [ 'post_types' => $data['post_types'] ] );
                 WP_CLI::success( ' Worker executed synchronously in CLI.' );
             }
 

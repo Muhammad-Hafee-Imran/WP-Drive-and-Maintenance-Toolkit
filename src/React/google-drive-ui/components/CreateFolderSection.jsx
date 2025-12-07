@@ -8,24 +8,24 @@ const CreateFolderSection = ({
     handleCreateFolder,
     isLoading
 }) => (
-    <div className="sui-box">
-        <div className="sui-box-header">
-            <h2 className="sui-box-title">
-                {__("Create New Folder", "wpmudev-plugin-test")}
+    <div className="hafee-box">
+        <div className="hafee-box-header">
+            <h2 className="hafee-box-title">
+                {__("Create New Folder", "hafee-utility-plugin")}
             </h2>
         </div>
-        <div className="sui-box-body">
-            <div className="sui-box-settings-row">
+        <div className="hafee-box-body">
+            <div className="hafee-box-settings-row">
                 <TextControl
-                    label={__("Folder Name", "wpmudev-plugin-test")}
+                    label={__("Folder Name", "hafee-utility-plugin")}
                     value={folderName}
                     onChange={setFolderName}
-                    placeholder={__("Enter folder name", "wpmudev-plugin-test")}
+                    placeholder={__("Enter folder name", "hafee-utility-plugin")}
                 />
             </div>
         </div>
-        <div className="sui-box-footer">
-            <div className="sui-actions-right">
+        <div className="hafee-box-footer">
+            <div className="hafee-actions-right">
                 <Button
                     variant="secondary"
                     onClick={handleCreateFolder}
@@ -34,7 +34,7 @@ const CreateFolderSection = ({
                     {isLoading ? (
                         <Spinner />
                     ) : (
-                        __("Create Folder", "wpmudev-plugin-test")
+                        __("Create Folder", "hafee-utility-plugin")
                     )}
                 </Button>
             </div>

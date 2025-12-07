@@ -12,8 +12,8 @@ dist/
 build/
 *.log
 
-# Composer dependencies
-/vendor/
+# Ignore Composer dependencies
+vendor/
 
 # WordPress uploads
 /wp-content/uploads/
@@ -32,4 +32,28 @@ yarn.lock
 # Ignore localwp or other local dev config files (optional)
 .localwp/
 
-/composer.lock
+# Ignore composer lock (optional - some prefer to commit it)
+composer.lock
+
+# Ignore temporary test directories
+%TEMP%/
+
+# Ignore test documentation files
+ANSWERS.md
+QUESTIONS.md
+
+# Ignore empty/unnecessary files
+changelog.txt
+
+# Ignore IDE and editor files
+*.swp
+*.swo
+*~
+.project
+.classpath
+.settings/
+
+# Ignore OS-specific files
+.DS_Store
+Thumbs.db
+desktop.ini

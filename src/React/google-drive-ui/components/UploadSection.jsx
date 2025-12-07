@@ -8,31 +8,31 @@ const UploadSection = ({
     handleUpload,
     isLoading
 }) => (
-    <div className="sui-box">
-        <div className="sui-box-header">
-            <h2 className="sui-box-title">
-                {__("Upload File to Drive", "wpmudev-plugin-test")}
+    <div className="hafee-box">
+        <div className="hafee-box-header">
+            <h2 className="hafee-box-title">
+                {__("Upload File to Drive", "hafee-utility-plugin")}
             </h2>
         </div>
-        <div className="sui-box-body">
-            <div className="sui-box-settings-row">
+        <div className="hafee-box-body">
+            <div className="hafee-box-settings-row">
                 <input
                     type="file"
                     ref={fileInputRef}
                     onChange={e => setUploadFile(e.target.files[0])}
                     className="drive-file-input"
-                    aria-label={__("Upload file", "wpmudev-plugin-test")}
+                    aria-label={__("Upload file", "hafee-utility-plugin")}
                 />
                 {uploadFile && (
                     <p>
-                        <strong>{__("Selected:", "wpmudev-plugin-test")}</strong>{" "}
+                        <strong>{__("Selected:", "hafee-utility-plugin")}</strong>{" "}
                         {uploadFile.name} ({Math.round(uploadFile.size / 1024)} KB)
                     </p>
                 )}
             </div>
         </div>
-        <div className="sui-box-footer">
-            <div className="sui-actions-right">
+        <div className="hafee-box-footer">
+            <div className="hafee-actions-right">
                 <Button
                     variant="primary"
                     onClick={handleUpload}
@@ -41,7 +41,7 @@ const UploadSection = ({
                     {isLoading ? (
                         <Spinner />
                     ) : (
-                        __("Upload to Drive", "wpmudev-plugin-test")
+                        __("Upload to Drive", "hafee-utility-plugin")
                     )}
                 </Button>
             </div>

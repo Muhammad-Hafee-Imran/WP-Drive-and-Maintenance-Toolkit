@@ -6,10 +6,10 @@ const ScheduleToggle = ({ enabled, loading, onToggle, scanType }) => (
         disabled={loading}
     >
         {loading
-           ? __("Updating...", "wpmudev-plugin-test")
+           ? __("Updating...", "hafee-utility-plugin")
             : enabled
-            ? __("Disable Scheduled Scans", "wpmudev-plugin-test")
-            : __("Enable Scheduled Scans", "wpmudev-plugin-test")}
+            ? __("Disable Scheduled Scans", "hafee-utility-plugin")
+            : __("Enable Scheduled Scans", "hafee-utility-plugin")}
     </button>
 );
 

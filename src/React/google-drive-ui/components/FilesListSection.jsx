@@ -8,12 +8,12 @@ const FilesListSection = ({
     loadFiles,
     handleDownload
 }) => (
-    <div className="sui-box">
-        <div className="sui-box-header">
-            <h2 className="sui-box-title">
-                {__("Your Drive Files", "wpmudev-plugin-test")}
+    <div className="hafee-box">
+        <div className="hafee-box-header">
+            <h2 className="hafee-box-title">
+                {__("Your Drive Files", "hafee-utility-plugin")}
             </h2>
-            <div className="sui-actions-right drive-file-buttons">
+            <div className="hafee-actions-right drive-file-buttons">
                 <Button
                     variant="secondary"
                     onClick={() =>
@@ -24,7 +24,7 @@ const FilesListSection = ({
                     }
                     disabled={isLoading || !nextPageToken}
                 >
-                    {isLoading ? <Spinner /> : __("Show More", "wpmudev-plugin-test")}
+                    {isLoading ? <Spinner /> : __("Show More", "hafee-utility-plugin")}
                 </Button>
                 <Button
                     variant="secondary"
@@ -34,16 +34,16 @@ const FilesListSection = ({
                     {isLoading ? (
                         <Spinner />
                     ) : (
-                        __("Refresh Files", "wpmudev-plugin-test")
+                        __("Refresh Files", "hafee-utility-plugin")
                     )}
                 </Button>
             </div>
         </div>
-        <div className="sui-box-body">
+        <div className="hafee-box-body">
             {isLoading ? (
                 <div className="drive-loading">
                     <Spinner />
-                    <p>{__("Loading files...", "wpmudev-plugin-test")}</p>
+                    <p>{__("Loading files...", "hafee-utility-plugin")}</p>
                 </div>
             ) : files.length > 0 ? (
                 <div className="drive-files-grid">
@@ -52,15 +52,15 @@ const FilesListSection = ({
                             <div className="file-info">
                                 <strong>{file.name}</strong>
                                 <small>
-                                    {__("Type:", "wpmudev-plugin-test")} {file.mimeType === "application/vnd.google-apps.folder"
-                                        ? __("📁 Folder", "wpmudev-plugin-test")
-                                        : __("📄 File", "wpmudev-plugin-test")}{" "}
+                                    {__("Type:", "hafee-utility-plugin")} {file.mimeType === "application/vnd.google-apps.folder"
+                                        ? __("📁 Folder", "hafee-utility-plugin")
+                                        : __("📄 File", "hafee-utility-plugin")}{" "}
                                 </small>
                                 <br />
                                 {file.mimeType !== "application/vnd.google-apps.folder" && (
                                     <>
                                         <small>
-                                           {__("Size:", "wpmudev-plugin-test")} {Math.round((file.size || 0) / 1024)} KB
+                                           {__("Size:", "hafee-utility-plugin")} {Math.round((file.size || 0) / 1024)} KB
                                         </small>
                                         <br />
                                     </>
@@ -68,7 +68,7 @@ const FilesListSection = ({
                                 <small>
                                     {file.modifiedTime
                                         ? new Date(file.modifiedTime).toLocaleDateString()
-                                        : __("Unknown date", "wpmudev-plugin-test")}
+                                        : __("Unknown date", "hafee-utility-plugin")}
                                 </small>
                             </div>
                             <div className="file-actions">
@@ -79,7 +79,7 @@ const FilesListSection = ({
                                         href={file.webViewLink}
                                         target="_blank"
                                     >
-                                        {__("View in Drive", "wpmudev-plugin-test")}
+                                        {__("View in Drive", "hafee-utility-plugin")}
                                     </Button>
                                 )}
                                 {file.mimeType !== "application/vnd.google-apps.folder" &&
@@ -91,7 +91,7 @@ const FilesListSection = ({
                                         {isLoading ? (
                                             <Spinner />
                                         ) : (
-                                            __("Download", "wpmudev-plugin-test")
+                                            __("Download", "hafee-utility-plugin")
                                         )}
                                     </Button>
                                 }
@@ -100,11 +100,11 @@ const FilesListSection = ({
                     ))}
                 </div>
             ) : (
-                <div className="sui-box-settings-row">
+                <div className="hafee-box-settings-row">
                     <p>
                         {__(
                             "No files found in your Drive. Upload a file or create a folder to get started.",
-                            "wpmudev-plugin-test"
+                            "hafee-utility-plugin"
                         )}
                     </p>
                 </div>

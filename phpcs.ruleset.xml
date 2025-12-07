@@ -43,13 +43,13 @@
 	<rule ref="WordPress.NamingConventions.PrefixAllGlobals">
 		<properties>
 			<!-- Value: replace the function, class, and variable prefixes used. Separate multiple prefixes with a comma. -->
-			<property name="prefixes" type="array" value="wpmudev_plugin_test,WPMUDEV"/>
+			<property name="prefixes" type="array" value="hafee_toolkit,HAFEE"/>
 		</properties>
 	</rule>
 	<rule ref="WordPress.WP.I18n">
 		<properties>
 			<!-- Value: replace the text domain used. -->
-			<property name="text_domain" type="array" value="wpmudev-plugin-test"/>
+			<property name="text_domain" type="array" value="hafee-utility-plugin"/>
 		</properties>
 	</rule>
 	<rule ref="WordPress.WhiteSpace.ControlStructureSpacing">

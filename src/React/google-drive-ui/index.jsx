@@ -26,10 +26,10 @@ import { __ } from "@wordpress/i18n";
 import "./scss/style.scss";
 
 const domElement = document.getElementById(
-    window.wpmudevDriveTest.dom_element_id
+    window.hafeeDriveTest.dom_element_id
 );
 
-const WPMUDEV_DriveTest = () => {
+const Hafee_DriveTest = () => {
     // Input refs and state for controlled fields
     const fileInputRef = useRef(null);
 
@@ -39,13 +39,13 @@ const WPMUDEV_DriveTest = () => {
         clientSecret: "",
     });
     const [showCredentials, setShowCredentials] = useState(
-        !window.wpmudevDriveTest.hasCredentials
+        !window.hafeeDriveTest.hasCredentials
     );
     const [hasCredentials, setHasCredentials] = useState(
-        window.wpmudevDriveTest.hasCredentials || false
+        window.hafeeDriveTest.hasCredentials || false
     );
     const [isAuthenticated, setIsAuthenticated] = useState(
-        window.wpmudevDriveTest.authStatus || false
+        window.hafeeDriveTest.authStatus || false
     );
     const [uploadFile, setUploadFile] = useState(null);
     const [folderName, setFolderName] = useState("");
@@ -79,28 +79,28 @@ const WPMUDEV_DriveTest = () => {
     // Handle save credentials
     const handleSaveCredentials = async () => {
         if (!credentials.clientId.trim() || !credentials.clientSecret.trim()) {
-            showNotice(__("Credential fields must not be empty.", "wpmudev-plugin-test"), "error");
+            showNotice(__("Credential fields must not be empty.", "hafee-utility-plugin"), "error");
             return;
         }
         try {
-            const response = await fetch(`/wp-json/${wpmudevDriveTest.restEndpointSave}`, {
+            const response = await fetch(`/wp-json/${hafeeDriveTest.restEndpointSave}`, {
                 method: 'POST',
                 headers: {
                     'Content-type': 'application/json',
-                    'X-WP-Nonce': wpmudevDriveTest.nonce
+                    'X-WP-Nonce': hafeeDriveTest.nonce
                 },
                 body: JSON.stringify(credentials)
             });
             const data = await response.json();
             if (!response.ok) {
-                showNotice(data.message || __("Failed to save credentials.", "wpmudev-plugin-test"), "error");
+                showNotice(data.message || __("Failed to save credentials.", "hafee-utility-plugin"), "error");
             } else {
-                showNotice(__('Credentials Saved.', 'wpmudev-plugin-test'), "success");
+                showNotice(__('Credentials Saved.', 'hafee-utility-plugin'), "success");
                 setShowCredentials(false);
                 setHasCredentials(true);
             }
         } catch (error) {
-            showNotice(__("Error Saving Credentials.", "wpmudev-plugin-test") + error.message || "", "error");
+            showNotice(__("Error Saving Credentials.", "hafee-utility-plugin") + error.message || "", "error");
         }
     };
 
@@ -113,14 +113,14 @@ const WPMUDEV_DriveTest = () => {
 
     return (
         <>
-            <div className="sui-header">
-                <h1 className="sui-header-title">
-                    {__("Google Drive Test ", "wpmudev-plugin-test")}
+            <div className="hafee-header">
+                <h1 className="hafee-header-title">
+                    {__("Google Drive Test ", "hafee-utility-plugin")}
                 </h1>
-                <p className="sui-description">
+                <p className="hafee-description">
                     {__(
-                        "Test Google Drive API integration for applicant assessment",
-                        "wpmudev-plugin-test"
+                        "Manage your Google Drive files directly from WordPress with secure OAuth authentication",
+                        "hafee-utility-plugin"
                     )}
                 </p>
             </div>
@@ -133,7 +133,7 @@ const WPMUDEV_DriveTest = () => {
                     setCredentials={setCredentials}
                     handleSaveCredentials={handleSaveCredentials}
                     isLoading={isLoading}
-                    redirectUri={window.wpmudevDriveTest.redirectUri}
+                    redirectUri={window.hafeeDriveTest.redirectUri}
                 />
             ) : !isAuthenticated ? (
                 <AuthSection
@@ -147,7 +147,10 @@ const WPMUDEV_DriveTest = () => {
                         uploadFile={uploadFile}
                         setUploadFile={setUploadFile}
                         fileInputRef={fileInputRef}
-                        handleUpload={() => handleUpload(fileInputRef, uploadFile)}
+                        handleUpload={async () => {
+                            await handleUpload(fileInputRef, uploadFile);
+                            setUploadFile(null); // 👈 reset after successful upload
+                        }}
                         isLoading={isLoading}
                     />
                     <CreateFolderSection
@@ -172,13 +175,13 @@ const WPMUDEV_DriveTest = () => {
 if (createRoot) {
     createRoot(domElement).render(
         <StrictMode>
-            <WPMUDEV_DriveTest />
+            <Hafee_DriveTest />
         </StrictMode>
     );
 } else {
     render(
         <StrictMode>
-            <WPMUDEV_DriveTest />
+            <Hafee_DriveTest />
         </StrictMode>,
         domElement
     );

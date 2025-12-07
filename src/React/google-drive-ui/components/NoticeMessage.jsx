@@ -4,7 +4,7 @@ import { createInterpolateElement } from '@wordpress/element';
 const NoticeMessage = ({ notice }) =>
     notice.message ? (
         <Notice status={notice.type} isDismissible={false}>
-            {__(notice.message, "wpmudev-plugin-test")}
+            {__(notice.message, "hafee-utility-plugin")}
         </Notice>
     ) : null;
 

@@ -2,7 +2,7 @@
 use Symfony\Component\Finder\Finder;
 
 return [
-    'prefix' => 'WPMUDEV\\PluginTest\\Vendor',
+    'prefix' => 'Hafee\\Toolkit\\Vendor',
 
     'finders' => [
         // Scope only Google API Client
@@ -17,7 +17,7 @@ return [
     ],
 
     'exclude-namespaces' => [
-        'WPMUDEV\\PluginTest', // don't scope your plugin code
+        'Hafee\\Toolkit', // don't scope your plugin code
     ],
 
     'exclude-classes' => [

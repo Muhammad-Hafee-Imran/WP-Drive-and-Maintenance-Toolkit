@@ -1,12 +1,12 @@
 import { __ } from "@wordpress/i18n";
 const ResultsTable = ({ results }) => (
-    <table className="widefat striped wpmudev-pm-results">
+    <table className="widefat striped hafee-pm-results">
         <thead>
             <tr>
-                <th>{__("ID", "wpmudev-plugin-test")}</th>
-                <th>{__("Title", "wpmudev-plugin-test")}</th>
-                <th>{__("Type", "wpmudev-plugin-test")}</th> 
-                <th>{__("Last Scan", "wpmudev-plugin-test")}</th>
+                <th>{__("ID", "hafee-utility-plugin")}</th>
+                <th>{__("Title", "hafee-utility-plugin")}</th>
+                <th>{__("Type", "hafee-utility-plugin")}</th> 
+                <th>{__("Last Scan", "hafee-utility-plugin")}</th>
             </tr>
         </thead>
         <tbody>

@@ -1,10 +1,10 @@
 <?php
 
-namespace WPMUDEV\PluginTest\App\AdminPages;
+namespace Hafee\Toolkit\App\AdminPages;
 
 defined( 'ABSPATH' ) || exit;
 
-use WPMUDEV\PluginTest\Base;
+use Hafee\Toolkit\Base;
 
 class PostsMaintenance extends Base {
 
@@ -20,7 +20,7 @@ class PostsMaintenance extends Base {
      *
      * @var string
      */
-    private $page_slug = 'wpmudev_plugintest_posts';
+    private $page_slug = 'hafee_toolkit_posts';
 
     /**
      * Admin page hook suffix.
@@ -33,7 +33,7 @@ class PostsMaintenance extends Base {
      * Initialize the Posts Maintenance page.
      */
     public function init_posts_maintenance() {
-        $this->page_title = __( 'Posts Maintenance', 'wpmudev-plugin-test' );
+        $this->page_title = __( 'Posts Maintenance', 'hafee-utility-plugin' );
 
         add_action( 'admin_menu', array( $this, 'register_admin_page' ) );
         add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_assets' ) );
@@ -70,8 +70,8 @@ class PostsMaintenance extends Base {
 
         // 1. Register JS
         wp_register_script(
-            'wpmudev-posts-maintenance-admin',
-            WPMUDEV_PLUGINTEST_ASSETS_URL . '/posts-maintenance/index.js',
+            'hafee-posts-maintenance-admin',
+            HAFEE_TOOLKIT_ASSETS_URL . '/posts-maintenance/index.js',
             array(
                 'react',
 				'wp-components',
@@ -86,29 +86,29 @@ class PostsMaintenance extends Base {
 
         // 2. Register CSS
         wp_register_style(
-            'wpmudev-posts-maintenance-admin-style',
-            WPMUDEV_PLUGINTEST_ASSETS_URL . '/posts-maintenance/index.css',
+            'hafee-posts-maintenance-admin-style',
+            HAFEE_TOOLKIT_ASSETS_URL . '/posts-maintenance/index.css',
             array(),
             $script_data['version']
         );
 
         // 3. Localize
         wp_localize_script(
-            'wpmudev-posts-maintenance-admin',
-            'wpmudevPostsMaintenance',
+            'hafee-posts-maintenance-admin',
+            'hafeePostsMaintenance',
             array(
-                'domId'   => 'wpmudev-posts-maintenance-root',
-                'restEndpointGetData' => 'wpmudev/v1/posts/get-scan-data/',
-                'restEndpointScheduleScan'    => 'wpmudev/v1/posts/schedule-scan/',
-                'restEndpointScanNow' =>  'wpmudev/v1/posts/scan-now/',
-                'restEndpointScheduleStatus' => 'wpmudev/v1/posts/schedule-status',
+                'domId'   => 'hafee-posts-maintenance-root',
+                'restEndpointGetData' => 'hafee/v1/posts/get-scan-data/',
+                'restEndpointScheduleScan'    => 'hafee/v1/posts/schedule-scan/',
+                'restEndpointScanNow' =>  'hafee/v1/posts/scan-now/',
+                'restEndpointScheduleStatus' => 'hafee/v1/posts/schedule-status',
                 'nonce'                        => wp_create_nonce( 'wp_rest' ),
             )
         );
 
         // 4. Enqueue
-        wp_enqueue_script( 'wpmudev-posts-maintenance-admin' );
-        wp_enqueue_style( 'wpmudev-posts-maintenance-admin-style' );
+        wp_enqueue_script( 'hafee-posts-maintenance-admin' );
+        wp_enqueue_style( 'hafee-posts-maintenance-admin-style' );
     }
 
     /**
@@ -119,8 +119,8 @@ class PostsMaintenance extends Base {
     protected function script_data(): array {
         static $asset_data = null;
 
-        if ( is_null( $asset_data ) && file_exists( WPMUDEV_PLUGINTEST_DIR . 'build/posts-maintenance/index.asset.php' ) ) {
-            $asset_data = include WPMUDEV_PLUGINTEST_DIR . 'build/posts-maintenance/index.asset.php';
+        if ( is_null( $asset_data ) && file_exists( HAFEE_TOOLKIT_DIR . 'build/posts-maintenance/index.asset.php' ) ) {
+            $asset_data = include HAFEE_TOOLKIT_DIR . 'build/posts-maintenance/index.asset.php';
         }
 
         return (array) $asset_data;
@@ -136,7 +136,7 @@ class PostsMaintenance extends Base {
         $screen = get_current_screen();
 
         if ( $screen && $screen->id === $this->admin_page_hook ) {
-            $classes .= ' wpmudev-posts-maintenance-admin ';
+            $classes .= ' hafee-posts-maintenance-admin ';
         }
 
         return $classes;
@@ -146,7 +146,7 @@ class PostsMaintenance extends Base {
      * Render the admin page (div for React to mount).
      */
     public function callback() {
-    echo '<div id="wpmudev-posts-maintenance-root" class="sui-wrap"></div>';
+    echo '<div id="hafee-posts-maintenance-root" class="hafee-wrap"></div>';
 }
 
 }

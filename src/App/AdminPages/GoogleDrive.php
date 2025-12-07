@@ -3,22 +3,18 @@
 /**
  * Google Drive test block.
  *
- * @link          https://wpmudev.com/
  * @since         1.0.0
  *
- * @author        WPMUDEV (https://wpmudev.com)
- * @package       WPMUDEV\PluginTest
- *
- * @copyright (c) 2025, Incsub (http://incsub.com)
+ * @package       Hafee\Toolkit
  */
 
-namespace WPMUDEV\PluginTest\App\AdminPages;
+namespace Hafee\Toolkit\App\AdminPages;
 
 // Abort if called directly.
 defined('WPINC') || die;
 
-use WPMUDEV\PluginTest\Base;
-use WPMUDEV\PluginTest\Encryption\Encryption;
+use Hafee\Toolkit\Base;
+use Hafee\Toolkit\Encryption\Encryption;
 
 class GoogleDrive extends Base
 {
@@ -34,7 +30,7 @@ class GoogleDrive extends Base
 	 *
 	 * @var string
 	 */
-	private $page_slug = 'wpmudev_plugintest_drive';
+	private $page_slug = 'hafee_toolkit_drive';
 
 	/**
 	 * Google Drive auth credentials.
@@ -50,7 +46,7 @@ class GoogleDrive extends Base
 	 *
 	 * @var string
 	 */
-	private $option_name = 'wpmudev_plugin_tests_auth';
+	private $option_name = 'hafee_plugin_tests_auth';
 
 	/**
 	 * Page Assets.
@@ -82,7 +78,7 @@ class GoogleDrive extends Base
 	 */
 	public function init()
 	{
-		$this->page_title     = __('Google Drive Test', 'wpmudev-plugin-test');
+		$this->page_title     = __('WP Drive and Maintenance Toolkit', 'hafee-utility-plugin');
 		$encrypted = get_option($this->option_name, '');
 		$this->creds = [];
 
@@ -92,8 +88,8 @@ class GoogleDrive extends Base
 				$this->creds = json_decode($decrypted, true);
 			}
 		}
-		$this->assets_version = ! empty($this->script_data('version')) ? $this->script_data('version') : WPMUDEV_PLUGINTEST_VERSION;
-		$this->unique_id      = "wpmudev_plugintest_drive_main_wrap-{$this->assets_version}";
+		$this->assets_version = ! empty($this->script_data('version')) ? $this->script_data('version') : HAFEE_TOOLKIT_VERSION;
+		$this->unique_id      = "hafee_toolkit_drive_main_wrap-{$this->assets_version}";
 
 		add_action('admin_menu', array($this, 'register_admin_page'));
 		add_action('admin_enqueue_scripts', array($this, 'enqueue_assets'));
@@ -137,9 +133,9 @@ class GoogleDrive extends Base
 			$this->page_scripts = array();
 		}
 
-		$handle       = 'wpmudev_plugintest_drivepage';
-		$src          = WPMUDEV_PLUGINTEST_ASSETS_URL . '/google-drive/index.js';
-		$style_src    = WPMUDEV_PLUGINTEST_ASSETS_URL . '/google-drive/style-index.css';
+		$handle       = 'hafee_toolkit_drivepage';
+		$src          = HAFEE_TOOLKIT_ASSETS_URL . '/google-drive/index.js';
+		$style_src    = HAFEE_TOOLKIT_ASSETS_URL . '/google-drive/style-index.css';
 		$dependencies = ! empty($this->script_data('dependencies'))
 			? $this->script_data('dependencies')
 			: array(
@@ -159,15 +155,15 @@ class GoogleDrive extends Base
 			'strategy'  => true,
 			'localize'  => array(
 				'dom_element_id'       => $this->unique_id,
-				'restEndpointSave'     => 'wpmudev/v1/drive/save-credentials',
-				'restEndpointAuth'     => 'wpmudev/v1/drive/auth',
-				'restEndpointFiles'    => 'wpmudev/v1/drive/files',
-				'restEndpointUpload'   => 'wpmudev/v1/drive/upload',
-				'restEndpointDownload' => 'wpmudev/v1/drive/download',
-				'restEndpointCreate'   => 'wpmudev/v1/drive/create-folder',
+				'restEndpointSave'     => 'hafee/v1/drive/save-credentials',
+				'restEndpointAuth'     => 'hafee/v1/drive/auth',
+				'restEndpointFiles'    => 'hafee/v1/drive/files',
+				'restEndpointUpload'   => 'hafee/v1/drive/upload',
+				'restEndpointDownload' => 'hafee/v1/drive/download',
+				'restEndpointCreate'   => 'hafee/v1/drive/create-folder',
 				'nonce'                => wp_create_nonce('wp_rest'),
 				'authStatus'           => $this->get_auth_status(),
-				'redirectUri'          => home_url('/wp-json/wpmudev/v1/drive/callback'),
+				'redirectUri'          => home_url('/wp-json/hafee/v1/drive/callback'),
 				'hasCredentials'       => ! empty($this->creds['client_id']) && ! empty($this->creds['client_secret']),
 			),
 		);
@@ -180,8 +176,8 @@ class GoogleDrive extends Base
 	 */
 	private function get_auth_status()
 	{
-		$access_token = get_option('wpmudev_drive_access_token', '');
-		$expires_at   = get_option('wpmudev_drive_token_expires', 0);
+		$access_token = get_option('hafee_drive_access_token', '');
+		$expires_at   = get_option('hafee_drive_token_expires', 0);
 
 		return ! empty($access_token) && time() < $expires_at;
 	}
@@ -209,8 +205,8 @@ class GoogleDrive extends Base
 	{
 		static $script_data = null;
 
-		if (is_null($script_data) && file_exists(WPMUDEV_PLUGINTEST_DIR . 'build/index.asset.php')) {
-			$script_data = include WPMUDEV_PLUGINTEST_DIR . 'build/index.asset.php';
+		if (is_null($script_data) && file_exists(HAFEE_TOOLKIT_DIR . 'build/index.asset.php')) {
+			$script_data = include HAFEE_TOOLKIT_DIR . 'build/index.asset.php';
 		}
 
 		return (array) $script_data;
@@ -234,7 +230,7 @@ class GoogleDrive extends Base
 				);
 
 				if (! empty($page_script['localize'])) {
-					wp_localize_script($handle, 'wpmudevDriveTest', $page_script['localize']);
+					wp_localize_script($handle, 'hafeeDriveTest', $page_script['localize']);
 				}
 
 				wp_enqueue_script($handle);
@@ -253,11 +249,11 @@ class GoogleDrive extends Base
 	 */
 	protected function view()
 	{
-		echo '<div id="' . esc_attr($this->unique_id) . '" class="sui-wrap"></div>';
+		echo '<div id="' . esc_attr($this->unique_id) . '" class="hafee-wrap"></div>';
 	}
 
 	/**
-	 * Adds the SUI class on markup body.
+	 * Adds custom classes on markup body.
 	 *
 	 * @param string $classes
 	 *
@@ -275,7 +271,7 @@ class GoogleDrive extends Base
 			return $classes;
 		}
 
-		$classes .= ' sui-' . str_replace('.', '-', WPMUDEV_PLUGINTEST_SUI_VERSION) . ' ';
+		$classes .= ' hafee-toolkit-admin ';
 
 		return $classes;
 	}

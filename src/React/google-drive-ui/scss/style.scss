@@ -1,11 +1,38 @@
-// Overwrite font path.
-$sui-font-path: '~@wpmudev/shared-ui/dist/fonts/';
-$sui-image-path: '~@wpmudev/shared-ui/dist/images/';
+// Custom admin UI styles - Hafee Toolkit
 
-// Share UI styles
-@import "@wpmudev/shared-ui";
+// Base box component styles
+.hafee-box {
+    background: #fff;
+    border: 1px solid #c3c4c7;
+    border-radius: 4px;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.04);
+}
 
-.sui-box-body {
+.hafee-box-header {
+    padding: 20px 20px 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+
+    .hafee-box-title {
+        margin: 0;
+        font-size: 18px;
+        font-weight: 600;
+        color: #1e1e1e;
+    }
+
+    .hafee-actions-right {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+}
+
+.hafee-box-body {
+    padding: 0 20px 20px;
+
     .components-base-control {
         min-width: 100%;
 
@@ -17,6 +44,54 @@ $sui-image-path: '~@wpmudev/shared-ui/dist/images/';
             display: block;
         }
     }
+}
+
+.hafee-box-footer {
+    padding: 15px 20px;
+    border-top: 1px solid #c3c4c7;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #f6f7f7;
+
+    .hafee-actions-left,
+    .hafee-actions-right {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+    }
+}
+
+.hafee-box-settings-row {
+    margin-bottom: 20px;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+}
+
+// Header styles
+.hafee-header {
+    margin-bottom: 30px;
+
+    .hafee-header-title {
+        margin: 0 0 8px;
+        font-size: 23px;
+        font-weight: 400;
+        color: #1e1e1e;
+    }
+}
+
+.hafee-description {
+    color: #757575;
+    margin: 0 0 30px;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+// Wrapper class
+.hafee-wrap {
+    padding: 20px;
 }
 
 // Google Drive Test specific styles
@@ -112,24 +187,18 @@ $sui-image-path: '~@wpmudev/shared-ui/dist/images/';
     }
 }
 
-// Authentication section
-.sui-description {
-    color: #757575;
-    margin-bottom: 30px;
-}
-
 // Notice styling adjustments
-    .components-notice {
-        margin: 20px 0;
+.components-notice {
+    margin: 20px 0;
 
-        &.is-success {
-            border-left-color: #00a32a;
-        }
-
-        &.is-error {
-            border-left-color: #d63638;
-        }
+    &.is-success {
+        border-left-color: #00a32a;
     }
+
+    &.is-error {
+        border-left-color: #d63638;
+    }
+}
 
 // Responsive adjustments
 @media (max-width: 768px) {
@@ -139,14 +208,18 @@ $sui-image-path: '~@wpmudev/shared-ui/dist/images/';
         gap: 15px;
 
         .file-actions {
-            align-self: stretch;
+            self-align: stretch;
             justify-content: flex-end;
         }
     }
 
-    .sui-box-header {
-        .sui-actions-right {
+    .hafee-box-header {
+        flex-direction: column;
+        align-items: flex-start;
+
+        .hafee-actions-right {
             margin-top: 15px;
+            width: 100%;
         }
     }
 }

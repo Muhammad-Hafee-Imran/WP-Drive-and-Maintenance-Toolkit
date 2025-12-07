@@ -9,12 +9,12 @@ export default function useScan() {
         try {
 
             const response = await fetch(
-                `/wp-json/${wpmudevPostsMaintenance.restEndpointScanNow}`,
+                `/wp-json/${hafeePostsMaintenance.restEndpointScanNow}`,
                 {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
-                        "X-WP-Nonce": wpmudevPostsMaintenance.nonce,
+                        "X-WP-Nonce": hafeePostsMaintenance.nonce,
                     },
                     body: JSON.stringify({
                         type: scanType, 
@@ -25,7 +25,7 @@ export default function useScan() {
             const data = await response.json();
             
             if (!response.ok) {
-                throw new Error(data.message || __("Scan failed.","wpmudev-plugin-test"));
+                throw new Error(data.message || __("Scan failed.","hafee-utility-plugin"));
             }
             if (data.message) {
                 setMessage(data.message);
@@ -33,7 +33,7 @@ export default function useScan() {
 
         } catch (error) {
             console.error("Error running scan:", error);
-            setMessage(error.message || __("Unexpected Error.","womudev-plugin-test"));
+            setMessage(error.message || __("Unexpected Error.","hafee-utility-plugin"));
         }
     };
 

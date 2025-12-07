@@ -1,5 +1,5 @@
 
-.wpmudev-pm-container {
+.hafee-pm-container {
     background: #fff;
     padding: 20px;
     border: 1px solid #ccd0d4;
@@ -10,7 +10,7 @@
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
     color: #23282d;
 }
-.wpmudev-pm-actions {
+.hafee-pm-actions {
     margin: 10px 0;
 
     .button {
@@ -19,7 +19,7 @@
 }
 
 /* Header */
-.wpmudev-pm-header {
+.hafee-pm-header {
     margin-bottom: 20px;
 
     h1 {
@@ -36,7 +36,7 @@
 }
 
 /* Actions */
-.wpmudev-pm-actions {
+.hafee-pm-actions {
     margin: 20px 0;
 
     .button {
@@ -54,7 +54,7 @@
 }
 
 /* Progress Bar */
-.wpmudev-pm-progress {
+.hafee-pm-progress {
     position: relative;
     height: 24px;
     background: #f3f4f5;
@@ -62,7 +62,7 @@
     margin: 20px 0;
     overflow: hidden;
 
-    .wpmudev-pm-progress-bar {
+    .hafee-pm-progress-bar {
         background: #0073aa; /* WordPress blue */
         height: 100%;
         border-radius: 3px;
@@ -82,7 +82,7 @@
 }
 
 /* Results Table */
-.wpmudev-pm-results {
+.hafee-pm-results {
     margin-top: 20px;
     border-collapse: collapse;
     width: 100%;
@@ -128,7 +128,7 @@
         border-color: #dc3232;
         color: #721c24;
     }
-    .wpmudev-pm-status {
+    .hafee-pm-status {
     margin: 10px 0;
     font-size: 14px;
 

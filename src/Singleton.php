@@ -2,16 +2,12 @@
 /**
  * Singleton class for all classes.
  *
- * @link    https://wpmudev.com/
  * @since   1.0.0
  *
- * @author  WPMUDEV (https://wpmudev.com)
- * @package WPMUDEV_PluginTest
- *
- * @copyright (c) 2025, Incsub (http://incsub.com)
+ * @package Hafee_Toolkit
  */
 
-namespace WPMUDEV\PluginTest;
+namespace Hafee\Toolkit;
 
 // Abort if called directly.
 defined( 'WPINC' ) || die;
@@ -19,7 +15,7 @@ defined( 'WPINC' ) || die;
 /**
  * Class Singleton
  *
- * @package WPMUDEV\PluginTest
+ * @package Hafee\Toolkit
  */
 abstract class Singleton {
 

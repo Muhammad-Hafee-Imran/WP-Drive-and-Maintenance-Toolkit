@@ -1,6 +1,6 @@
 {
-	"name": "wpmudev/plugintest",
-	"description": "A plugin focused on testing coding skills.",
+	"name": "hafee/wp-drive-maintenance-toolkit",
+	"description": "WordPress plugin providing Google Drive integration and automated content maintenance workflows.",
 	"type": "project",
 	"config": {
 		"platform": {
@@ -10,12 +10,11 @@
 			"dealerdirect/phpcodesniffer-composer-installer": true
 		}
 	},
-	"homepage": "https://wpmudev.com/",
+	"homepage": "",
 	"license": "GPL-2.0+",
 	"authors": [
 		{
-			"name": "Incsub",
-			"homepage": "https://wpmudev.com"
+			"name": "Muhammad Hafee Imran"
 		}
 	],
 	"require": {
@@ -28,7 +27,9 @@
 		"dealerdirect/phpcodesniffer-composer-installer": "^1.0",
 		"phpcompatibility/phpcompatibility-wp": "^2.1",
 		"wp-cli/wp-cli-bundle": "^2.12",
-		"humbug/php-scoper": "^0.17.5"
+		"humbug/php-scoper": "^0.17.5",
+		"phpunit/phpunit": "9",
+		"yoast/phpunit-polyfills": "^4.0"
 	},
 	"scripts": {
 		"post-install-cmd": [
@@ -36,11 +37,16 @@
 		],
 		"post-update-cmd": [
 			"Google_Task_Composer::cleanup"
-		]
+		],
+		"build": [
+        "npm run build",
+        "vendor/bin/php-scoper add-prefix --output-dir=build/php-scoped"
+    ],
+		"test": "phpunit"
 	},
 	"autoload": {
         "psr-4": {
-			"WPMUDEV\\PluginTest\\": "src/"
+			"Hafee\\Toolkit\\": "src/"
 		}
 	}
 }

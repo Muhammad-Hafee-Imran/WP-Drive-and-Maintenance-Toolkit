@@ -1,5 +1,6 @@
 import { useState, useCallback } from "@wordpress/element";
-import { createInterpolateElement } from '@wordpress/element';
+import { __ } from "@wordpress/i18n";
+
 export default function useNotice(timeout = 5000) {
     const [notice, setNotice] = useState({ message: "", type: "" });
 

@@ -2,16 +2,12 @@
 /**
  * Base class for all endpoint classes.
  *
- * @link          https://wpmudev.com/
  * @since         1.0.0
  *
- * @author        WPMUDEV (https://wpmudev.com)
- * @package       WPMUDEV\PluginTest
- *
- * @copyright (c) 2025, Incsub (http://incsub.com)
+ * @package       Hafee\Toolkit
  */
 
-namespace WPMUDEV\PluginTest\Endpoints\V1;
+namespace Hafee\Toolkit\Endpoints\V1;
 
 use WP_REST_Response;
 use WP_REST_Controller;
@@ -56,7 +52,7 @@ class Endpoint extends WP_REST_Controller {
 	 */
 	protected function __construct() {
 		// Setup namespace of the endpoint.
-		$this->namespace = 'wpmudev/v' . $this->version;
+		$this->namespace = 'hafee/v' . $this->version;
 
 		// If the single instance hasn't been set, set it now.
 		$this->register_hooks();
@@ -114,7 +110,7 @@ class Endpoint extends WP_REST_Controller {
 		 * @since 1.0.0
 		 *
 		 */
-		return apply_filters( 'wpmudev_plugintest_rest_settings_permission', $capable, $request );
+		return apply_filters( 'hafee_toolkit_rest_settings_permission', $capable, $request );
 	}
 
 	/**

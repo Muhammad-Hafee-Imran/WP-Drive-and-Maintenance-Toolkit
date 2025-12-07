@@ -1,13 +1,14 @@
 <?php
 
-namespace WPMUDEV\PluginTest\Endpoints\V1;
+namespace Hafee\Toolkit\Endpoints\V1;
 
 defined('ABSPATH') || exit;
 
 use WP_REST_Request;
 use WP_REST_Response;
-use WPMUDEV\PluginTest\Base;
-use WPMUDEV\PluginTest\Endpoints\V1\PostsScanProcess;
+use Hafee\Toolkit\Base;
+use Hafee\Toolkit\Endpoints\V1\PostsScanProcess;
+use WP_Error;
 
 class PostsApi extends Base
 {
@@ -18,38 +19,58 @@ class PostsApi extends Base
         add_action('rest_api_init', array($this, 'register_routes_posts'));
 
         // Hook the worker function into Action Scheduler
-        add_action('wpmudev_posts_do_scan', 'wpmudev_run_posts_scan', 10, 1);
+        add_action('hafee_posts_do_scan', 'hafee_run_posts_scan', 10, 1);
     }
 
     public function register_routes_posts()
     {
         // Scan now endpoint
-        register_rest_route('wpmudev/v1/posts', '/scan-now', [
+        register_rest_route('hafee/v1/posts', '/scan-now', [
             'methods' => 'POST',
-            'callback' => array($this, 'scan_posts_now')
+            'callback' => array($this, 'scan_posts_now'),
+            'permission_callback' => [$this, 'permission']
+
         ]);
 
         // Schedule the scan
-        register_rest_route('wpmudev/v1/posts', '/schedule-scan', [
+        register_rest_route('hafee/v1/posts', '/schedule-scan', [
             'methods' => 'POST',
-            'callback' => array($this, 'schedule_scans')
+            'callback' => array($this, 'schedule_scans'),
+            'permission_callback' => [$this, 'permission']
+
         ]);
 
         // Show scan history
-        register_rest_route('wpmudev/v1/posts', '/get-scan-data', [
+        register_rest_route('hafee/v1/posts', '/get-scan-data', [
             'methods' => 'GET',
-            'callback' => array($this, 'get_scan_data')
+            'callback' => array($this, 'get_scan_data'),
+            'permission_callback' => [$this, 'permission']
         ]);
 
-        register_rest_route('wpmudev/v1/posts', '/schedule-status', [
+        register_rest_route('hafee/v1/posts', '/schedule-status', [
             'methods'  => 'GET',
             'callback' => [$this, 'get_schedule_status'],
+            'permission_callback' => [$this, 'permission']
+
         ]);
     }
 
+    public function permission()
+	{
+		if (! current_user_can('manage_options')) {
+			return new WP_Error(
+				'hafee_rest_forbidden',
+				'You are not allowed to access this endpoint.',
+				['status' => 403]
+			);
+		}
+		return true;
+	}
+
+
     public function get_schedule_status()
     {
-        $enabled    = (bool) get_option('wpmudev_daily_scan_enabled', false);
+        $enabled    = (bool) get_option('hafee_daily_scan_enabled', false);
 
         return rest_ensure_response([
             'enabled' => $enabled,
@@ -78,16 +99,16 @@ class PostsApi extends Base
                 break;
         }
 
-        update_option('wpmudev_scan_status', [
+        update_option('hafee_scan_status', [
             'status' => 'Scanning',
             'time'   => current_time('mysql')
         ]);
 
         // Enqueue Action Scheduler job
         as_enqueue_async_action(
-            'wpmudev_posts_do_scan',
+            'hafee_posts_do_scan',
             ['post_types' => $post_types],
-            'wpmudev-plugin-test'
+            'hafee-utility-plugin'
         );
 
         return new WP_REST_Response([
@@ -99,8 +120,8 @@ class PostsApi extends Base
 
     public function get_scan_data()
     {
-        $scan_data = get_option('wpmudev_scan_data', []);
-        $status = get_option('wpmudev_scan_status', ['status' => 'Idle']);
+        $scan_data = get_option('hafee_scan_data', []);
+        $status = get_option('hafee_scan_status', ['status' => 'Idle']);
 
         return new WP_REST_Response([
             'status'      => $status['status'],
@@ -138,16 +159,16 @@ class PostsApi extends Base
         error_log($enable);
         if ($enable) {
             // Save settings
-            update_option('wpmudev_daily_scan_enabled', true);
-            update_option('wpmudev_scheduled_post_types', $post_types);
+            update_option('hafee_daily_scan_enabled', true);
+            update_option('hafee_scheduled_post_types', $post_types);
 
             // Schedule if not already scheduled
-            if (! as_next_scheduled_action('wpmudev_daily_scan')) {
+            if (! as_next_scheduled_action('hafee_daily_scan')) {
                 error_log("in if ");
                 as_schedule_recurring_action(
                     time() + DAY_IN_SECONDS, // first run = 24h from now
                     DAY_IN_SECONDS,          // repeat every 24h
-                    'wpmudev_daily_scan'
+                    'hafee_daily_scan'
                 );
             }
 
@@ -159,9 +180,9 @@ class PostsApi extends Base
             ]);
         } else {
             // Disable scheduling
-            update_option('wpmudev_daily_scan_enabled', false);
-            delete_option('wpmudev_scheduled_post_types');
-            as_unschedule_all_actions('wpmudev_daily_scan');
+            update_option('hafee_daily_scan_enabled', false);
+            delete_option('hafee_scheduled_post_types');
+            as_unschedule_all_actions('hafee_daily_scan');
 
             return new WP_REST_Response([
                 'success' => true,

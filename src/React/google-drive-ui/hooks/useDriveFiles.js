@@ -1,4 +1,6 @@
 import { useState } from "@wordpress/element";
+import { __ } from "@wordpress/i18n";
+
 export default function useDriveFiles(showNotice) {
     const [files, setFiles] = useState([]);
     const [nextPageToken, setNextPageToken] = useState(null);
@@ -7,15 +9,15 @@ export default function useDriveFiles(showNotice) {
     const loadFiles = async ({ pageSize = 20, q = "trashed=false", pageToken = "", append = false } = {}) => {
         try {
             setIsLoading(true);
-            let url = `/wp-json/${wpmudevDriveTest.restEndpointFiles}?pageSize=${pageSize}&q=${encodeURIComponent(q)}`;
+            let url = `/wp-json/${hafeeDriveTest.restEndpointFiles}?pageSize=${pageSize}&q=${encodeURIComponent(q)}`;
             if (pageToken) url += `&pageToken=${encodeURIComponent(pageToken)}`;
             const response = await fetch(url, {
                 method: 'GET',
-                headers: { 'X-WP-Nonce': wpmudevDriveTest.nonce },
+                headers: { 'X-WP-Nonce': hafeeDriveTest.nonce },
             });
             const data = await response.json();
             if (!response.ok) {
-                showNotice(data.message || __("Could not fetch files.","wpmudev-plugin-test"), "error");
+                showNotice(data.message || __("Could not fetch files.","hafee-utility-plugin"), "error");
             } else {
                 if (append) {
                     setFiles(prevFiles => [...prevFiles, ...(data.files || [])]);
@@ -25,7 +27,7 @@ export default function useDriveFiles(showNotice) {
                 setNextPageToken(data.nextPageToken || null);
             }
         } catch (error) {
-            showNotice(error.message || __("Failed to retrieve files.","wpmudev-plugin-test"), "error");
+            showNotice(error.message || __("Failed to retrieve files.","hafee-utility-plugin"), "error");
         } finally {
             setIsLoading(false);
         }

@@ -7,8 +7,8 @@ const ScanButton = ({ isScanning, scanStatus, onClick }) => (
         disabled={isScanning || scanStatus === "Scanning"}
     >
         {isScanning || scanStatus === "Scanning"
-            ? __("Scanning...", "wpmudev-plugin-test")
-            : __("Run Scan", "wpmudev-plugin-test")}
+            ? __("Scanning...", "hafee-utility-plugin")
+            : __("Run Scan", "hafee-utility-plugin")}
     </button>
 );
 

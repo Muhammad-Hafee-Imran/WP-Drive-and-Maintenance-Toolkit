@@ -10,16 +10,16 @@ const CredentialsForm = ({
     isLoading,
     redirectUri
 }) => (
-    <div className="sui-box">
-        <div className="sui-box-header">
-            <h2 className="sui-box-title">{__("Set Google Drive Credentials", "wpmudev-plugin-test")}</h2>
+    <div className="hafee-box">
+        <div className="hafee-box-header">
+            <h2 className="hafee-box-title">{__("Set Google Drive Credentials", "hafee-utility-plugin")}</h2>
         </div>
-        <div className="sui-box-body">
+        <div className="hafee-box-body">
             {/* Client ID */}
-            <div className="sui-box-settings-row">
+            <div className="hafee-box-settings-row">
                 <TextControl
                     help={createInterpolateElement(
-                        __("You can get Client ID from <a>Google Cloud Console</a>. Make sure to enable Google Drive API.", "wpmudev-plugin-test"),
+                        __("You can get Client ID from <a>Google Cloud Console</a>. Make sure to enable Google Drive API.", "hafee-utility-plugin"),
                         {
                             a: (
                                 <a
@@ -30,7 +30,7 @@ const CredentialsForm = ({
                             ),
                         }
                     )}
-                    label={__("Client ID", "wpmudev-plugin-test")}
+                    label={__("Client ID", "hafee-utility-plugin")}
                     value={credentials.clientId}
                     onChange={value =>
                         setCredentials({ ...credentials, clientId: value })
@@ -38,10 +38,10 @@ const CredentialsForm = ({
                 />
             </div>
             {/* Client Secret */}
-            <div className="sui-box-settings-row">
+            <div className="hafee-box-settings-row">
                 <TextControl
                     help={createInterpolateElement(
-                        __("You can get Client Secret from <a>Google Cloud Console</a>.", "wpmudev-plugin-test"),
+                        __("You can get Client Secret from <a>Google Cloud Console</a>.", "hafee-utility-plugin"),
                         {
                             a: (
                                 <a
@@ -52,7 +52,7 @@ const CredentialsForm = ({
                             ),
                         }
                     )}
-                    label={__("Client Secret", "wpmudev-plugin-test")}
+                    label={__("Client Secret", "hafee-utility-plugin")}
                     value={credentials.clientSecret}
                     onChange={value =>
                         setCredentials({ ...credentials, clientSecret: value })
@@ -61,10 +61,10 @@ const CredentialsForm = ({
                 />
             </div>
             {/* Redirect URI */}
-            <div className="sui-box-settings-row">
+            <div className="hafee-box-settings-row">
                 <span>
                     {createInterpolateElement(
-                        __("Please use this URL <em></em> in your Google API's <strong>Authorized redirect URIs</strong> field.", "wpmudev-plugin-test"),
+                        __("Please use this URL <em></em> in your Google API's <strong>Authorized redirect URIs</strong> field.", "hafee-utility-plugin"),
                         {
                             em: <em>{redirectUri}</em>,
                             strong: <strong />,
@@ -73,24 +73,24 @@ const CredentialsForm = ({
                 </span>
             </div>
             {/* Scopes */}
-            <div className="sui-box-settings-row">
+            <div className="hafee-box-settings-row">
                 <p>
                     <strong>
-                        {__("Required scopes for Google Drive API:", "wpmudev-plugin-test")}
+                        {__("Required scopes for Google Drive API:", "hafee-utility-plugin")}
                     </strong>{" "}
                     https://www.googleapis.com/auth/drive.file{" | "}
                     https://www.googleapis.com/auth/drive.readonly
                 </p>
             </div>
         </div>
-        <div className="sui-box-footer">
-            <div className="sui-actions-right">
+        <div className="hafee-box-footer">
+            <div className="hafee-actions-right">
                 <Button
                     variant="primary"
                     onClick={handleSaveCredentials}
                     disabled={isLoading}
                 >
-                    {isLoading ? <Spinner /> : __("Save Credentials", "wpmudev-plugin-test")}
+                    {isLoading ? <Spinner /> : __("Save Credentials", "hafee-utility-plugin")}
                 </Button>
             </div>
         </div>

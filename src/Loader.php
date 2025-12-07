@@ -3,18 +3,14 @@
 /**
  * Class to boot up plugin.
  *
- * @link    https://wpmudev.com/
  * @since   1.0.0
  *
- * @author  WPMUDEV (https://wpmudev.com)
- * @package WPMUDEV_PluginTest
- *
- * @copyright (c) 2025, Incsub (http://incsub.com)
+ * @package Hafee_Toolkit
  */
 
-namespace WPMUDEV\PluginTest;
+namespace Hafee\Toolkit;
 
-use WPMUDEV\PluginTest\Base;
+use Hafee\Toolkit\Base;
 
 // If this file is called directly, abort.
 defined('WPINC') || die;
@@ -105,8 +101,8 @@ final class Loader extends Base
 		if (defined('WP_CLI') && WP_CLI) {
 			try {
 				\WP_CLI::add_command(
-					'wpmudev posts scan',
-					\WPMUDEV\PluginTest\CLI\PostsCli::class
+					'hafee posts scan',
+					\Hafee\Toolkit\CLI\PostsCli::class
 				);
 			} catch (\Exception $e) {
 				\WP_CLI::warning('Could not register posts-scan command: ' . $e->getMessage());

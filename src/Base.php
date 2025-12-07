@@ -3,18 +3,14 @@
  * File Description:
  * Base abstract class to be inherited by other classes
  *
- * @link    https://wpmudev.com/
  * @since   1.0.0
  *
- * @author  WPMUDEV (https://wpmudev.com)
- * @package WPMUDEV_PluginTest
- *
- * @copyright (c) 2025, Incsub (http://incsub.com)
+ * @package Hafee_Toolkit
  */
 
-namespace WPMUDEV\PluginTest;
+namespace Hafee\Toolkit;
 
-use WPMUDEV\PluginTest\Singleton;
+use Hafee\Toolkit\Singleton;
 
 // Abort if called directly.
 defined( 'WPINC' ) || die;
@@ -22,7 +18,7 @@ defined( 'WPINC' ) || die;
 /**
  * Class Base
  *
- * @package WPMUDEV\PluginTest
+ * @package Hafee\Toolkit
  */
 abstract class Base extends Singleton {
 	/**

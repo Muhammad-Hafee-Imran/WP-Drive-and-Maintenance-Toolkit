@@ -14,12 +14,12 @@ export default function useResults(setScanStatus, setStatusTime) {
             setIsLoading(true);
 
             const response = await fetch(
-                `/wp-json/${wpmudevPostsMaintenance.restEndpointGetData}`,
+                `/wp-json/${hafeePostsMaintenance.restEndpointGetData}`,
                 {
                     method: "GET",
                     headers: {
                         "Content-Type": "application/json",
-                        "X-WP-Nonce": wpmudevPostsMaintenance.nonce,
+                        "X-WP-Nonce": hafeePostsMaintenance.nonce,
                     },
                 }
             );
@@ -27,7 +27,7 @@ export default function useResults(setScanStatus, setStatusTime) {
             data = await response.json();
 
             if (!response.ok) {
-                throw new Error(data.message || __("Failed to fetch results.","wpmudev-plugin-test"));
+                throw new Error(data.message || __("Failed to fetch results.","hafee-utility-plugin"));
             }
 
             // ✅ Always update status and status_time
@@ -51,7 +51,7 @@ export default function useResults(setScanStatus, setStatusTime) {
                 const mapped = data.last_scan.posts.map((p) => ({
                     id: p.id,
                     title: p.title,
-                    type: p.type || __("N/A", "wpmudev-plugin-test"),
+                    type: p.type || __("N/A", "hafee-utility-plugin"),
                     lastScan: data.last_scan.time,
                 }));
                 setHistory(mapped);
@@ -72,7 +72,7 @@ export default function useResults(setScanStatus, setStatusTime) {
             }
 
         } catch (error) {
-            setMessage(error.message || __("Unexpected error.","wpmudev-plugin-test"));
+            setMessage(error.message || __("Unexpected error.","hafee-utility-plugin"));
         } finally {
             setIsLoading(false);
         }
