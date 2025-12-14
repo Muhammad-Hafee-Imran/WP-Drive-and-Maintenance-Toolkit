@@ -1,6 +1,16 @@
 # WP Drive and Maintenance Toolkit
 
-A WordPress plugin providing Google Drive integration and automated content maintenance workflows.
+A WordPress plugin focused on asynchronous background processing, external API integration, and maintainable admin tooling, implemented using modern WordPress engineering practices.
+
+
+## Design Goals
+
+This plugin is structured to reflect production-grade WordPress development practices:
+- Clear separation of concerns across PHP, REST, and React layers
+- Explicit handling of asynchronous workflows using Action Scheduler
+- Dependency isolation to avoid conflicts in shared plugin environments
+- Maintainable architecture optimized for long-lived systems rather than short-term demos
+
 
 ## Features
 
@@ -11,6 +21,7 @@ A WordPress plugin providing Google Drive integration and automated content main
 - **Background Processing**: Asynchronous task processing via Action Scheduler
 - **Dependency Isolation**: PHP Scoper for vendor dependency isolation
 - **PSR-4 Autoloading**: Modern PHP structure with Composer autoloading
+
 
 ## Requirements
 
